@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	.top.wrapper
+		.ui.main.text.container
+			h1.ui.header(itemprop="name headline")= title
+			span.ui.sub.header Test
+	include ../inc/navbar.jade
+	main.blog.wrapper.ui.text.container
+		block inside

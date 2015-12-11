@@ -1,0 +1,49 @@
+extends ../template/default.tpl
+
+block inside
+	h1= title
+	.ui.styled.fluid.accordion
+		.title.active.clearfix
+			i.dropdown.icon
+			.header Game 1
+			.ui.label(data-label="rpg") RPG
+		.content.active.clearfix
+			.wrapper
+				.ui.small.image
+					img(src="/images/jeux/7daystodie.jpg", alt="7 Days To Die")
+				.description
+					p.
+						Besiege is a physics based building game in which you construct medieval siege engines and lay waste to immense fortresses and peaceful hamlets.
+					.bottom
+						p Poids: 25.5 Go
+						a.ui.purple.button(href="http://www.google.com").
+							Télécharger
+							#[i.download.icon]
+		each game in gameList
+			.title.clearfix
+				i.dropdown.icon
+				.header #{game.name}
+				each category in game.categories
+					.ui.label(data-label="#{category.toLowerCase()}") #{category}
+			.content.clearfix
+				.wrapper
+					.ui.small.image
+						img(src="#{game.image}", alt="#{game.name}")
+					.description
+						p #{game.description}
+						.bottom
+							p Poids: #{game.size}
+							a.ui.purple.button(href="#{game.url}", target="_blank").
+								Télécharger
+								#[i.download.icon]
+
+block aside
+	.ui.vertical.menu
+		h3.ui.header.
+			#[i.filter.icon]
+			Filtres
+		each category in categoryList
+			a.pink.item.filter(
+				href="##{category.name.toLowerCase()}", 
+				data-filter="#{category.name.toLowerCase()}"
+			) #{category.name}

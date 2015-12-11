@@ -1,0 +1,185 @@
+body, html {
+	height: auto;
+}
+.top.wrapper {
+	background: #000;
+	padding-top: 2em;
+	padding-bottom: 3em;
+	margin-bottom: 1em;
+}
+.top.wrapper .ui.header {
+	color: #fff;
+}
+.main.wrapper {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	min-height: 79vh;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	margin-bottom: 2rem;
+}
+.main.wrapper .ui.grid {
+	padding: 0 1em;
+}
+.main.wrapper #post-cards .post-header {
+	-webkit-flex-grow: 0;
+	-ms-flex-positive: 0;
+	flex-grow: 0;
+}
+.main.wrapper #post-cards .post-description {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+.main.wrapper #post-cards .post-description .post-icon {
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	margin-right: 1rem;
+}
+.main.wrapper #post-cards .post-description .post-icon i {
+	font-size: 4em;
+	line-height: 1;
+}
+.main.wrapper #post-cards .ui.label:first-child {
+	margin-bottom: .6em;
+}
+.main.wrapper #post-cards .card {
+	transition: width .5s ease;
+}
+.main.wrapper .ui.icon.menu {
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+.main.wrapper .ui.icon.menu .header {
+	-webkit-flex-grow: 1;
+	-ms-flex-positive: 1;
+	flex-grow: 1;
+}
+.blog.wrapper {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	min-height: 63vh;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	margin-bottom: 2rem;
+}
+.blog.wrapper img {
+	position: relative;
+	display: block;
+	vertical-align: middle;
+	max-width: 100%;
+	background-color: transparent;
+}
+.main.menu {
+	margin-top: 0;
+	border-radius: 0;
+	border: none;
+	box-shadow: none;
+	transition: box-shadow .5s ease, padding .5s ease;
+}
+.main.menu .item img.logo {
+	margin-right: 1.5em;
+}
+.main.menu.fixed {
+	background-color: #FFF;
+	border: 1px solid #DDD;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+}
+.main.menu .active.item, .main.menu .active.item:hover {
+	color: #AF0000;
+	font-weight: 700;
+}
+.ui.menu .active.item {
+	font-weight: 700;
+}
+.overlay {
+	float: left;
+	margin: 0 3em 1em 0;
+}
+.overlay .menu {
+	position: relative;
+	left: 0;
+	transition: left .5s ease;
+}
+.overlay.fixed .menu {
+	left: 800px;
+}
+
+aside .ui.vertical.menu {
+	width: auto;
+	margin-top: 2em;
+}
+thead #formAddCategory {
+	float: right;
+	margin-top: -5px;
+}
+#formAddCategory .fields {
+	justify-content: flex-end;
+}
+#post-cards .post-description {
+	align-items: center;
+	flex-direction: column;
+}
+#post-cards .ui.small.image {
+	margin-bottom: 1em;
+	max-width: 150px;
+	width: 100%;
+}
+#post-cards img {
+	max-height: 150px;
+	margin: auto;
+	display: block;
+}
+
+
+.accordion .header {
+	display: inline-block;
+	font-size: 1.7em;
+	line-height: 1;
+}
+.accordion .title .label {
+	float: right;
+}
+.ui.accordion .title i.dropdown.icon {
+	font-size: 1.5em;
+}
+
+.accordion .wrapper {
+	display: flex;
+}
+.accordion .wrapper .ui.image {
+	margin-right: 1em;
+	min-height: 180px;
+}
+.accordion .wrapper .description {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+.accordion .wrapper .description p {
+	flex-grow: 1;
+}
+.accordion .wrapper .description .bottom {
+	border-top: 1px solid #aaa;
+	padding: .5em;
+	display: flex;
+}
+.accordion .wrapper .description .bottom .icon {
+	margin-left: .5em;
+}
+.vertical.menu h3.header {
+	padding: 10px;
+	margin: 0;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}

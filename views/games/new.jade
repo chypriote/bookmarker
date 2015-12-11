@@ -1,0 +1,39 @@
+extends ../template/default.tpl
+
+block inside
+	h1= title
+	form#formAddGame.ui.nine.wide.form(name="addGame", method="post", action="/games", enctype="multipart/form-data")
+		.seven.wide.field
+			label(for="inputName") Nom
+			input#inputName(type="text", placeholder="Nom", name="inputName", required="")
+		.seven.wide.field
+			label(for="inputUrl") Lien
+			input#inputUrl(type="text", placeholder="Lien", name="inputUrl")
+		.nine.wide.field
+			label(for="inputDescription") Description
+			textarea#inputDescription(type="text", placeholder="Description", name="inputDescription")
+		.three.wide.field
+			label(for="inputSize") Poids
+			input#inputSize(type="text", name="inputSize")
+		.seven.wide.field
+			label(for="inputImage") Image
+			input#inputImage(type="file", name="inputImage")
+		.seven.wide.field
+			label Catégorie
+			select#inputCategory.ui.search.dropdown(multiple="", name="inputCategory", required="")
+				each category in categoryList
+					option(value="#{category.name}") #{category.name}
+		.nine.wide.field
+			button#btnSubmit.ui.submit.right.floated.button(type="submit") Enregistrer
+
+block aside
+	.ui.vertical.menu
+		h3.ui.header.
+			#[i.configure.icon]
+			Editer
+		a.active.pink.item(href="/") RPG
+		a.teal.item(href="#") Action
+		a.teal.item(href="#") FPS
+		a.teal.item(href="#") Simulation
+		//-each category in categoryList
+			a.pink.item(href="#") #{category.name}
