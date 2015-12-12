@@ -22,17 +22,16 @@ router.get('/', function(req, res) {
 	var categoryCollection = req.db.get('gameCategories');
 
 	async.parallel([
-		function(callback) {gameList: gamesCollection.find({}, callback)},
-		function(callback) {categoryList: categoryCollection.find({}, callback)}
+		function(callback) {gamesCollection.find({}, callback)},
+		function(callback) {categoryCollection.find({}, callback)}
 		], function(err, result) {
 			res.render('games/list', {
-				"gameList": result[0],
+				"gameList": result[0].reverse(),
 				"categoryList": result[1],
 				"title": "Liste des jeux disponibles"
 			});
 		});
 });
-
 router.get('/add', function(req, res) {
 	var collection = req.db.get('gameCategories');
 	collection.find({}, {}, function(e, docs){
@@ -40,29 +39,46 @@ router.get('/add', function(req, res) {
 			"title":"Ajouter un jeu",
 			"categoryList": docs
 		});
-	})
-});
-
-//game by name
-router.get('/:id', function(req, res) {
-	var collection = req.db.get('gamescollection');
-	collection.find({'_id':req.params.id}, function(e, docs){
-		res.render('index', {
-			"game": docs,
-			"title": docs.name
-		});
 	});
 });
 
-//delete game
+router.get('/categories', function(req, res) {
+	var collection = req.db.get('gameCategories');
+	collection.find({}, {}, function(e, docs){
+		res.render('category', {
+			"title":"Ajouter une catégorie de jeu",
+			"categoryList": docs
+		});
+	});
+});
+router.post('/categories', function(req, res) {
+	var	pCategory = req.body.postCategory;
+	var collection = req.db.get('gameCategories');
+
+	collection.insert({
+		"name":pCategory,
+		"nb":0
+	}, function(err, doc){
+		if (err) {
+			req.send("There was a problem adding the category to the database");
+		} else {
+			res.redirect('/games/categories');
+		}
+	});
+});
+router.delete('/categories/:id', function(req, res) {
+	var collection = req.db.get('gameCategories');
+	collection.remove({'_id':req.params.id}, function(err) {
+		res.send((err === null) ? {msg:''} : {msg:'error: '+err});
+	});
+});
+
 router.delete('/:id', function(req, res) {
 	var collection = req.db.get('gamescollection');
 	collection.remove({'_id':req.params.id}, function(err) {
 		res.send((err === null) ? {msg:''} : {msg:'error: '+err});
 	});
 });
-
-//add game
 router.post('/', upload.single('inputImage'), function(req, res) {
 	var	pName = req.body.inputName,
 			pUrl = req.body.inputUrl,

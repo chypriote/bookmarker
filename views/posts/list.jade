@@ -1,33 +1,33 @@
 extends ../template/default.tpl
 
 block inside
-	h1=title
-	table.ui.celled.striped.table
-		thead
-			tr
-				th #
-				th Titre
-				th Catégories
-				th URL
-				th Date
-				th Actions
-		tbody
-			each post, i in postList
-				tr(id="#{post._id}")
-					td.collapsing #{i + 1}
-					td #{post.title}
-					td.right.aligned.collapsing 
-						each category in post.categories
-							.ui.label #{ucfirst(category)}
-					td.right.aligned.collapsing 
-						a(href="#{post.url}", target="_blank") #{post.url}
-					td.right.aligned.collapsing #{moment(post.date).format('D/M/YYYY H:m')}
-					td.right.aligned.collapsing.collapsing
-						a.ui.small.red.button.deletePost(href="#", rel="#{post._id}") Remove 
-		tfoot
-			tr
-				th(colspan="6")
-					form#formAdd.ui.form(name="addcategory",method="get",action="/posts/add")
-						button.ui.blue.button(type="submit").
-							#[i.edit.icon]
-							Ajouter
+	h1.ui.header=title
+		a.right.floated(href="posts/add")
+			i.add.square.icon
+	#mixer.ui.styled.fluid.accordion
+		each post in postList
+			.mix(class=post.categories)
+				.title.clearfix
+					i.dropdown.icon
+					.header #{post.title}
+					each category in post.categories
+						.ui.label(data-label="#{category.toLowerCase()}") #{category}
+				.content.clearfix
+					.wrapper
+						.ui.small.image
+							img(src="/images/#{post.image}", alt="#{post.title}")
+						.description
+							p #{post.body}
+							.bottom
+								a(href="#{post.url}", target="_blank") #{post.url}
+
+block aside
+	.ui.vertical.menu
+		h3.ui.header(data-filter="all").
+			#[i.filter.icon]
+			Filtres
+		each category in categoryList
+			a.pink.item.filter(
+				href="##{category.name.toLowerCase()}", 
+				data-filter=".#{category.name}",
+			) #{category.name}

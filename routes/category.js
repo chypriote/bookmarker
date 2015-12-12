@@ -1,13 +1,29 @@
 var express = require('express');
+var async = require('async');
 var router = express.Router();
 
 // List of categories
 router.get('/', function(req, res) {
+	var postCategories = req.db.get('categorycollection');
+	var gameCategories = req.db.get('gameCategories');
+
+	async.parallel([
+		function(callback) {postCategories.find({}, callback)},
+		function(callback) {gameCategories.find({}, callback)}
+		], function(err, result) {
+			res.render('category', {
+				"postCategories": result[0],
+				"gameCategories": result[1],
+				"title": "Liste des jeux disponibles"
+			});
+		});
+});
+router.get('/add', function(req, res) {
 	var collection = req.db.get('categorycollection');
 	collection.find({}, {}, function(e, docs){
 		res.render('category', {
 			"categoryList": docs,
-			"title": "Liste des catégories"
+			"title": "Ajouter une catégorie"
 		});
 	});
 });

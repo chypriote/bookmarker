@@ -1,6 +1,39 @@
+/* Récent */
 body, html {
 	height: auto;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
+.main.wrapper {
+	flex-grow: 1;
+	margin-bottom: 2rem;
+}
+
+a.right.floated {
+	float: right;
+	color: inherit;
+}
+a.right.floated:hover {
+	color: rgba(0,0,0,.4);
+}
+.content .bottom a {
+	color: #E26B1C;
+}
+.content .bottom a:hover {
+	color: #FF6A00;
+	text-decoration: underline;
+}
+.test {
+	color: blue !important;
+}
+
+#mixer .mix {
+	display: none;
+}
+
+/* Old*/
+
 .top.wrapper {
 	background: #000;
 	padding-top: 2em;
@@ -9,16 +42,6 @@ body, html {
 }
 .top.wrapper .ui.header {
 	color: #fff;
-}
-.main.wrapper {
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-	min-height: 79vh;
-	-webkit-flex-direction: column;
-	-ms-flex-direction: column;
-	flex-direction: column;
-	margin-bottom: 2rem;
 }
 .main.wrapper .ui.grid {
 	padding: 0 1em;
