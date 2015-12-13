@@ -3,16 +3,8 @@ extends layout
 block content
 	include ../inc/navbar.jade
 	main.main.wrapper.ui.container-fluid
-		.ui.grid
+		.ui.stackable.grid
 			aside.three.wide.column
 				block aside
-				.ui.vertical.menu
-					a.active.pink.item(href="/") Accueil
-					.ui.simple.dropdown.item Web
-						i.dropdown.icon
-						.menu
-							a.teal.item(href="#") Javascript
-							a.teal.item(href="#") CSS
-					a.teal.item(href="#") About
 			section.thirteen.wide.column
 				block inside

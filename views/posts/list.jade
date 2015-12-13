@@ -23,11 +23,13 @@ block inside
 
 block aside
 	.ui.vertical.menu
-		h3.ui.header(data-filter="all").
-			#[i.filter.icon]
-			Filtres
+		h3.ui.header
+			i.filter.icon
+			.header Filtres
+			i.right.aligned.rotated.counterclockwise.dropdown.icon
 		each category in categoryList
 			a.pink.item.filter(
 				href="##{category.name.toLowerCase()}", 
 				data-filter=".#{category.name}",
 			) #{category.name}
+		a.pink.item.filter.reset(href="#all", data-filter="all") Reset filters

@@ -1,23 +1,25 @@
-extends template/default.tpl
+extends template/layout
 
-block inside
-	h1= title
-	#post-cards.ui.four.stackable.cards
-		each post, i in postList
-			- var id = i % 13;
-			.card
-				.content.post-header
-					h3.ui.header 
-						a(href="#{post.url}") #{post.title}
-				.content.post-description
-					if post.image != ""
-						.ui.small.image
-							img(src="/images/#{post.image}", alt="#{post.title}")
-					else
-						.ui.small.image
-							img(src="/images/logo.png", alt="#{post.title}")
-					.clearfix
-					p #{post.body}
-				.extra
-					each category in post.categories
-						a.ui.label(href="category/#{category}") #{ucfirst(category)}
+block content
+	include inc/navbar.jade
+	main.main.wrapper.ui.container-fluid
+		.ui.grid
+			section.column
+				h1= title
+				#post-cards.ui.three.stackable.cards
+					each post, i in postList
+						- var id = i % 13;
+						.card
+							.content.post-header
+								h3.ui.header 
+									a(href="#{post.url}") #{post.title}
+							.content.post-description
+								.ui.image
+									if post.image != ""
+										img(src="/images/#{post.image}", alt="#{post.title}")
+									else
+										img(src="/images/logo.png", alt="#{post.title}")
+								p #{post.body}
+							.extra
+								each category in post.categories
+									a.ui.label(href="category/#{category}") #{ucfirst(category)}
