@@ -8,7 +8,7 @@ var multer = require('multer');
 
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/bookmarks');
+var db = monk('127.0.0.1:27017/bookmarks');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');

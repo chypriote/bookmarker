@@ -11,8 +11,5 @@ router.get('/', function(req, res, next) {
 		});
 	});
 });
-router.get('/helloworld', function(req, res, next) {
-  res.render('helloworld', { title: 'Hello World!' });
-});
 
 module.exports = router;
