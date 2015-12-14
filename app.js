@@ -8,7 +8,7 @@ var multer = require('multer');
 
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('127.0.0.1:27017/bookmarks');
+var db = monk('127.0.0.1:27017/bookmarker');
 
 var routes = require('./routes/index');
 var posts = require('./routes/posts');
@@ -25,7 +25,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
