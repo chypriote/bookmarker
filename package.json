@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "async": "^1.5.0",
@@ -15,8 +15,9 @@
     "jquery": "^2.1.4",
     "kerberos": "0.0.17",
     "moment": "^2.10.6",
-    "mongodb": "^1.4.4",
+    "mongodb": "*",
     "monk": "^1.0.1",
+    "monk2": "^1.0.0",
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
     "serve-favicon": "~2.3.0"
