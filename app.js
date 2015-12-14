@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 
 var mongo = require('mongodb');
-var monk = require('monk2');
+var monk = require('monk');
 var db = monk('127.0.0.1:27017/bookmarks');
 
 var routes = require('./routes/index');
