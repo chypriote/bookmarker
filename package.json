@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "npm un node-gyp -g;npm i node-gyp -g;node app.js"
   },
   "dependencies": {
     "async": "^1.5.0",
