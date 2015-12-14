@@ -9,8 +9,10 @@ body, html {
 		flex-grow: 1;
 		margin-bottom: 2rem;
 		.ui.grid {padding: 0 1em;}
+		.ui.image img {min-width: 140px;}
 	}
 	&.menu {
+		margin: 1.4rem 0;
 		.item img.logo {margin-right: 1.5em;}
 		&.fixed {
 			background-color: #FFF;
@@ -36,7 +38,7 @@ aside {
 }
 
 /*-----------MULTI-----------*/
-	#mixer .mix {
+	#mixer .mix, #post-cards .mix {
 		display: none;
 	}
 	a.right.floated {
@@ -48,6 +50,9 @@ aside {
 		content: "";
 		display: table;
 		clear: both;
+	}
+	.ui.pagination.menu {
+		margin: 1rem auto;
 	}
 
 /*-----------ACCORDION-----------*/
@@ -77,10 +82,13 @@ aside {
 					padding: .5em;
 					display: flex;
 					.icon {margin-left: .5em;}
-					a {color:#E26B1C;
-						&:hover {
-							color: #FF6A00;
-							text-decoration: underline;
+					a {
+						&:not(.button) {
+							color:#E26B1C;
+							&:hover {
+								color: #FF6A00;
+								text-decoration: underline;
+							}
 						}
 					}
 				}
@@ -96,6 +104,10 @@ aside {
 				display: flex;
 				align-items: center;
 				cursor: pointer;
+				i.dropdown {
+					transition: transform .3s ease;
+					@media (min-width: 769px) {display: none;}
+				}
 			}
 			.icon {padding-top: 0;}
 			.header {
@@ -106,11 +118,17 @@ aside {
 		}
 		.item.filter {
 			@media (max-width: 768px) {display: none;}
-			&.reset {
-				@media (max-width: 768px) {display: none;}
+			// &.reset {display: none;}
+		}
+		.transparent.icon.input {
+			width: 100%;
+			.circular.icon {
+				top: -.35em;
+				right: -.35em;
 			}
 		}
 	}
+	.ui.action.input:not([class*="left action"]) input:focus {border-right: transparent;}	
 
 /*-----------------CATEGORY LSIT--------*/
 	#post-cards {
@@ -153,8 +171,3 @@ aside {
 		}
 	}
 
-#formAddCategory {
-	float: right;
-	margin-top: -5px;
-	.fields {justify-content: flex-end;}
-}

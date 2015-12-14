@@ -1,0 +1,18 @@
+extends template/display.tpl
+
+block accordion
+	each post in pluginsList
+		.mix(class=post.categories, data-id=post._id)
+			.title.clearfix
+				i.dropdown.icon
+				.header #{post.title}
+				each category in post.categories
+					.ui.label(data-label="#{category.toLowerCase()}") #{category}
+			.content.clearfix
+				.wrapper
+					.ui.small.image
+						img(src="#{post.image}", alt="#{post.title}")
+					.description
+						p #{post.body}
+						.bottom
+							a(href="#{post.url}", target="_blank") #{post.url}

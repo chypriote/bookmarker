@@ -1,0 +1,21 @@
+extends default.tpl
+
+block inside
+	h1.ui.header=title
+		a.right.floated(href=route + "/add")
+			i.add.square.icon
+	#mixer.ui.styled.fluid.accordion
+		block accordion
+
+block aside
+	.ui.vertical.menu
+		h3.ui.header
+			i.filter.icon
+			.header Filtres
+			i.right.aligned.rotated.counterclockwise.dropdown.icon
+		a.pink.item.filter.reset(href="#all", data-filter="all") Voir tous
+		each category in categoryList
+			a.pink.item.filter(
+				href="##{category.name.toLowerCase()}", 
+				data-filter=".#{category.name}",
+			) #{category.name}

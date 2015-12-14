@@ -1,0 +1,21 @@
+extends template/display.tpl
+
+block accordion
+	each game in gameList
+		.mix(class=game.categories)
+			.title.clearfix
+				i.dropdown.icon
+				.header #{game.name}
+				each category in game.categories
+					.ui.label(data-label="#{category.toLowerCase()}") #{category}
+			.content.clearfix
+				.wrapper
+					.ui.small.image
+						img(src="#{game.image}", alt="#{game.name}")
+					.description
+						p #{game.description}
+						.bottom
+							p Poids: #{game.size}
+							a.ui.purple.button(href="#{game.url}", target="_blank").
+								Télécharger
+								#[i.download.icon]

@@ -26,26 +26,40 @@ $(document).ready(function($) {
 			.modal('show');
 	});
 
-	$('.vertical.menu h3.header').click(function(e) {
-			$check = $(this).find('.dropdown');
-			$check.toggleClass('rotated');
-			if ($check.hasClass('rotated')) {
-				$('.item.filter').slideUp()
-			} else {
-				if ($('.item.filter.active').length > 1){
-					$('.item.filter.active').slideDown();
-					$('.item.filter.reset').slideDown();
-				} else {
-					$('.item.filter').not('.reset').slideDown();
-				}
-			}
+	$('.vertical.menu i.add.icon').click(function() {
+		if ($('#inputCategory').val() != "")
+			$('#formAddCategory').submit();
 	});
-	$('.item.filter').click(function() {
-		$a = $('.item.filter').not($(this)).not('.reset');
-		$(this).hasClass('active')?$a.slideDown():$a.slideUp();
-		$(this).hasClass('active')?$('.item.reset').slideUp():$('.item.reset').slideDown();
+	$('#filters').click(function() {
+		$('.item.filter').slideToggle();
+		$(this).find('.dropdown').toggleClass('rotated');
+		// 		$check = $(this).find('.dropdown');
+		// 		$check.toggleClass('rotated');
+		// 		if ($check.hasClass('rotated')) {
+		// 			$('.item.filter').slideUp()
+		// 		} else {
+		// 			if ($('.item.filter.active').length > 1){
+		// 				$('.item.filter.active').slideDown();
+		// 				$('.item.filter.reset').slideDown();
+		// 			} else {
+		// 				$('.item.filter').not('.reset').slideDown();
+		// 			}
+		// 		}
 	});
 
+	$('.item.filter').click(function() {
+		if ($(this).hasClass('reset'))
+			$('.item.filter').slideDown();
+		else
+			$('.item.filter').not('.reset').not($(this)).removeClass('active').slideUp();
+	});
+
+	$('#layout').click(function() {
+		$(this).find('i').toggleClass('list layout sidebar');
+		$('#post-cards .post-description').toggle();
+		// $('#post-cards .extra').toggle();
+	});
+	
 	$('.ui.accordion').accordion();
 	$('select.dropdown').dropdown();
 	$('#mixer').mixItUp	({
@@ -55,6 +69,14 @@ $(document).ready(function($) {
 		// controls: {
 		// 	toggleFilterButtons: true,
 		// 	toggleLogic: 'and'
+		}
+	});
+	$('#post-cards').mixItUp	({
+		layout: {
+			display: 'flex'
+		},
+		load: {
+			sort: 'date:desc'
 		}
 	});
 });

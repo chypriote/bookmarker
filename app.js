@@ -8,12 +8,13 @@ var multer = require('multer');
 
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('127.0.0.1:27017/bookmarks');
+var db = monk('127.0.0.1:27017/bookmarker');
 
 var routes = require('./routes/index');
 var posts = require('./routes/posts');
 var category = require('./routes/category');
 var games = require('./routes/games');
+var plugins = require('./routes/plugins');
 
 var app = express();
 
@@ -41,6 +42,7 @@ app.use('/', routes);
 app.use('/posts', posts);
 app.use('/category', category);
 app.use('/games', games);
+app.use('/plugins', plugins);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

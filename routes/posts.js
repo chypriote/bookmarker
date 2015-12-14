@@ -18,63 +18,65 @@ var multer = require('multer');
 
 // List of posts
 router.get('/', function(req, res) {
-	var postCollection = req.db.get('postcollection');
-	var categoryCollection = req.db.get('categorycollection');
+	var postCollection = req.db.get('postCollection');
+	var categoryCollection = req.db.get('postCategories');
 
 	async.parallel([
 		function(callback) {postCollection.find({}, callback)},
 		function(callback) {categoryCollection.find({}, callback)}
 		], function(err, result) {
-			res.render('posts/list', {
+			res.render('list-posts', {
 				"postList": result[0].reverse(),
 				"categoryList": result[1],
-				"title": "Liste des posts"
+				"title": "Liste des posts",
+				"route": "posts"
 			});
 		});
 });
 router.get('/add', function(req, res) {
-	var collection = req.db.get('categorycollection');
+	var collection = req.db.get('postCategories');
 	collection.find({}, {}, function(e, docs){
-		res.render('posts/new', {
+		res.render('new-posts', {
 			"title":"Ajouter un post",
 			"categoryList": docs
 		});
 	})
 });
 
-router.get('/categories', function(req, res) {
-	var collection = req.db.get('categorycollection');
-	collection.find({}, {}, function(e, docs){
-		res.render('category', {
-			"title":"Ajouter une catégorie",
-			"categoryList": docs
+// Categories
+	router.get('/categories', function(req, res) {
+		var collection = req.db.get('postCategories');
+		collection.find({}, {}, function(e, docs){
+			res.render('category', {
+				"title":"Ajouter une catégorie",
+				"categoryList": docs
+			});
 		});
 	});
-});
-router.post('/categories', function(req, res) {
-	var	pCategory = req.body.postCategory;
-	var collection = req.db.get('categorycollection');
+	router.post('/categories', function(req, res) {
+		var	pCategory = req.body.postCategory;
+		var collection = req.db.get('postCategories');
 
-	collection.insert({
-		"name":pCategory,
-		"nb":0
-	}, function(err, doc){
-		if (err) {
-			req.send("There was a problem adding the category to the database");
-		} else {
-			res.redirect('/posts/categories');
-		}
+		collection.insert({
+			"name":pCategory,
+			"nb":0
+		}, function(err, doc){
+			if (err) {
+				req.send("There was a problem adding the category to the database");
+			} else {
+				res.redirect('/posts/add');
+			}
+		});
 	});
-});
-router.delete('/categories/:id', function(req, res) {
-	var collection = req.db.get('categorycollection');
-	collection.remove({'_id':req.params.id}, function(err) {
-		res.send((err === null) ? {msg:''} : {msg:'error: '+err});
+	router.delete('/categories/:id', function(req, res) {
+		var collection = req.db.get('postCategories');
+		collection.remove({'_id':req.params.id}, function(err) {
+			res.send((err === null) ? {msg:''} : {msg:'error: '+err});
+		});
 	});
-});
 
 router.delete('/:id', function(req, res) {
-	var collection = req.db.get('postcollection');
+	var collection = req.db.get('postCollection');
 	collection.remove({'_id':req.params.id}, function(err) {
 		res.send((err === null) ? {msg:''} : {msg:'error: '+err});
 	});
@@ -85,10 +87,11 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 			pDate = moment().format(),
 			pUrl = req.body.inputUrl,
 			pBody = req.body.inputBody,
-			pImage = req.file.path,
 			pCategory = req.body.inputCategory;
-	var collection = req.db.get('postcollection');
+	var collection = req.db.get('postCollection');
 	if (typeof pCategory === 'string') {pCategory = [pCategory];}
+	var pImage = "";
+	if (req.file) pImage = req.file.path;
 
 	collection.insert({
 		"title":pTitle,

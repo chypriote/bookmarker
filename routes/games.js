@@ -18,63 +18,65 @@ var multer = require('multer');
 
 
 router.get('/', function(req, res) {
-	var gamesCollection = req.db.get('gamescollection');
-	var categoryCollection = req.db.get('gameCategories');
+	var gamesCollection = req.db.get('gamesCollection');
+	var categoryCollection = req.db.get('gamesCategories');
 
 	async.parallel([
 		function(callback) {gamesCollection.find({}, callback)},
 		function(callback) {categoryCollection.find({}, callback)}
 		], function(err, result) {
-			res.render('games/list', {
+			res.render('list-games', {
 				"gameList": result[0].reverse(),
 				"categoryList": result[1],
-				"title": "Liste des jeux disponibles"
+				"title": "Liste des jeux disponibles",
+				"route": "games"
 			});
 		});
 });
 router.get('/add', function(req, res) {
-	var collection = req.db.get('gameCategories');
+	var collection = req.db.get('gamesCategories');
 	collection.find({}, {}, function(e, docs){
-		res.render('games/new', {
+		res.render('new-games', {
 			"title":"Ajouter un jeu",
 			"categoryList": docs
 		});
 	});
 });
 
-router.get('/categories', function(req, res) {
-	var collection = req.db.get('gameCategories');
-	collection.find({}, {}, function(e, docs){
-		res.render('category', {
-			"title":"Ajouter une catégorie de jeu",
-			"categoryList": docs
+// Categories
+	router.get('/categories', function(req, res) {
+		var collection = req.db.get('gamesCategories');
+		collection.find({}, {}, function(e, docs){
+			res.render('category', {
+				"title":"Ajouter une catégorie de jeu",
+				"categoryList": docs
+			});
 		});
 	});
-});
-router.post('/categories', function(req, res) {
-	var	pCategory = req.body.postCategory;
-	var collection = req.db.get('gameCategories');
+	router.post('/categories', function(req, res) {
+		var	pCategory = req.body.postCategory;
+		var collection = req.db.get('gamesCategories');
 
-	collection.insert({
-		"name":pCategory,
-		"nb":0
-	}, function(err, doc){
-		if (err) {
-			req.send("There was a problem adding the category to the database");
-		} else {
-			res.redirect('/games/categories');
-		}
+		collection.insert({
+			"name":pCategory,
+			"nb":0
+		}, function(err, doc){
+			if (err) {
+				req.send("There was a problem adding the category to the database");
+			} else {
+				res.redirect('/games/add');
+			}
+		});
 	});
-});
-router.delete('/categories/:id', function(req, res) {
-	var collection = req.db.get('gameCategories');
-	collection.remove({'_id':req.params.id}, function(err) {
-		res.send((err === null) ? {msg:''} : {msg:'error: '+err});
+	router.delete('/categories/:id', function(req, res) {
+		var collection = req.db.get('gamesCategories');
+		collection.remove({'_id':req.params.id}, function(err) {
+			res.send((err === null) ? {msg:''} : {msg:'error: '+err});
+		});
 	});
-});
 
 router.delete('/:id', function(req, res) {
-	var collection = req.db.get('gamescollection');
+	var collection = req.db.get('gamesCollection');
 	collection.remove({'_id':req.params.id}, function(err) {
 		res.send((err === null) ? {msg:''} : {msg:'error: '+err});
 	});
@@ -89,7 +91,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 			pCategory = req.body.inputCategory;
 	if (typeof pCategory === 'string') {pCategory = [pCategory];}
 
-	var collection = req.db.get('gamescollection');
+	var collection = req.db.get('gamesCollection');
 
 	collection.insert({
 		"name":pName,

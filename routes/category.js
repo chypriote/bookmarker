@@ -4,7 +4,7 @@ var router = express.Router();
 
 // List of categories
 router.get('/', function(req, res) {
-	var postCategories = req.db.get('categorycollection');
+	var postCategories = req.db.get('postCategories');
 	var gameCategories = req.db.get('gameCategories');
 
 	async.parallel([
@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
 		});
 });
 router.get('/add', function(req, res) {
-	var collection = req.db.get('categorycollection');
+	var collection = req.db.get('postCategories');
 	collection.find({}, {}, function(e, docs){
 		res.render('category', {
 			"categoryList": docs,
@@ -28,20 +28,9 @@ router.get('/add', function(req, res) {
 	});
 });
 
-//category by name
-router.get('/:name', function(req, res) {
-	var collection = req.db.get('postcollection');
-	collection.find({'categories':req.params.name}, function(e, docs){
-		res.render('index', {
-			"postList": docs,
-			"title": "Posts dans la catégorie " + req.params.name
-		});
-	});
-});
-
 //delete category
 router.delete('/:id', function(req, res) {
-	var collection = req.db.get('categorycollection');
+	var collection = req.db.get('postCategories');
 	collection.remove({'_id':req.params.id}, function(err) {
 		res.send((err === null) ? {msg:''} : {msg:'error: '+err});
 	});
@@ -50,7 +39,7 @@ router.delete('/:id', function(req, res) {
 //add category
 router.post('/', function(req, res) {
 	var	pCategory = req.body.postCategory.toLowerCase();
-	var collection = req.db.get('categorycollection');
+	var collection = req.db.get('postCategories');
 
 	collection.insert({
 		"name":pCategory
