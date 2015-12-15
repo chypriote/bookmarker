@@ -2,7 +2,7 @@ extends template/display.tpl
 
 block accordion
 	each post in postList
-		.mix(class=post.categories, data-id=post._id)
+		.mix(class=post.categories, data-date=post.date, data-name=post.title)
 			.title.clearfix
 				i.dropdown.icon
 				.header #{post.title}

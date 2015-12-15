@@ -47,10 +47,6 @@ html {
 .main.menu .placeholder {
   visibility: hidden;
 }
-aside .ui.vertical.menu {
-  width: auto;
-  margin-top: 2em;
-}
 /*-----------MULTI-----------*/
 #mixer .mix,
 #post-cards .mix {
@@ -133,6 +129,10 @@ a.right.floated:hover {
   text-decoration: underline;
 }
 /*-----------VERTICAL-MENU-----------*/
+.ui.vertical.menu {
+  width: auto;
+  margin-top: 2em;
+}
 .ui.vertical.menu h3.header {
   padding: 10px;
   margin: 0;
@@ -157,6 +157,9 @@ a.right.floated:hover {
 }
 .ui.vertical.menu h3 .icon {
   padding-top: 0;
+}
+.ui.vertical.menu h3#layout .icon {
+  padding-top: .13em;
 }
 .ui.vertical.menu h3 .header {
   -webkit-box-flex: 1;
@@ -240,6 +243,7 @@ a.right.floated:hover {
 @media (min-width: 992px) {
   #post-cards img {
     max-width: 150px;
+    min-width: initial;
   }
 }
 #post-cards .ui.image {

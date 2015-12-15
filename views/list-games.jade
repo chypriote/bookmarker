@@ -2,7 +2,7 @@ extends template/display.tpl
 
 block accordion
 	each game in gameList
-		.mix(class=game.categories)
+		.mix(class=game.categories, data-date=game.date, data-name=game.name)
 			.title.clearfix
 				i.dropdown.icon
 				.header #{game.name}

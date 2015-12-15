@@ -30,13 +30,6 @@ body, html {
 		.placeholder {visibility: hidden;}
 	}
 }
-aside {
-	.ui.vertical.menu {
-		width: auto;
-		margin-top: 2em;
-	}
-}
-
 /*-----------MULTI-----------*/
 	#mixer .mix, #post-cards .mix {
 		display: none;
@@ -97,6 +90,8 @@ aside {
 	}
 /*-----------VERTICAL-MENU-----------*/
 	.ui.vertical.menu {
+		width: auto;
+		margin-top: 2em;
 		h3 {
 			&.header {
 				padding: 10px;
@@ -110,6 +105,7 @@ aside {
 				}
 			}
 			.icon {padding-top: 0;}
+			&#layout .icon{padding-top: .13em;}
 			.header {
 				flex-grow: 1;
 				font-size: 1.4em;
@@ -155,6 +151,7 @@ aside {
 			}
 			@media (min-width: 992px) {
 				max-width: 150px;
+				min-width: initial;
 			}
 		}
 		.ui.image {

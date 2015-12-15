@@ -86,10 +86,11 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 			pUrl = req.body.inputUrl,
 			pDate = moment().format(),
 			pDesc = req.body.inputDescription,
-			pImage = req.file.path,
 			pSize = req.body.inputSize,
 			pCategory = req.body.inputCategory;
 	if (typeof pCategory === 'string') {pCategory = [pCategory];}
+	var pImage = "";
+	if (req.file) pImage = req.file.path;
 
 	var collection = req.db.get('gamesCollection');
 

@@ -56,7 +56,7 @@ $(document).ready(function($) {
 
 	$('#layout').click(function() {
 		$(this).find('i').toggleClass('list layout sidebar');
-		$('#post-cards .post-description').toggle();
+		$('#post-cards .post-description').slideToggle();
 		// $('#post-cards .extra').toggle();
 	});
 	
@@ -69,6 +69,9 @@ $(document).ready(function($) {
 		// controls: {
 		// 	toggleFilterButtons: true,
 		// 	toggleLogic: 'and'
+		},
+		load: {
+			sort: 'date:desc'
 		}
 	});
 	$('#post-cards').mixItUp	({
