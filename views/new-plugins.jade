@@ -1,20 +1,17 @@
 extends template/add.tpl
 
 block form
-	form#formAddGame.ui.nine.wide.form(name="addGame", method="post", action="/games", enctype="multipart/form-data")
+	form#formAddPost.ui.form(name="addPost", method="post", action="/plugins", enctype="multipart/form-data")
 		.seven.wide.field
-			label(for="inputName") Nom
-			input#inputName(type="text", placeholder="Nom", name="inputName", required="")
+			label(for="inputTitle") Titre
+			input#inputTitle(type="text", placeholder="Titre", name="inputTitle", required="")
 		.seven.wide.field
 			label(for="inputUrl") Lien
 			input#inputUrl(type="text", placeholder="Lien", name="inputUrl")
 		.nine.wide.field
-			label(for="inputDescription") Description
-			textarea#inputDescription(type="text", placeholder="Description", name="inputDescription")
-		.three.wide.field
-			label(for="inputSize") Poids
-			input#inputSize(type="text", name="inputSize")
-		.seven.wide.field
+			label(for="inputBody") Texte
+			textarea#inputBody(type="text", placeholder="Texte", name="inputBody")
+		.field
 			label(for="inputImage") Image
 			input#inputImage(type="file", name="inputImage")
 		.seven.wide.field
@@ -23,4 +20,4 @@ block form
 				each category in categoryList
 					option(value="#{category.name}") #{category.name}
 		.nine.wide.field
-			button#btnSubmit.ui.submit.right.floated.button(type="submit") Enregistrer
+			button#btnSubmit.ui.right.floated.submit.button(type="submit") Enregistrer

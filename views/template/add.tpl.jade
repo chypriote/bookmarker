@@ -9,6 +9,11 @@ block aside
 		h3.ui.header.
 			#[i.cubes.icon]
 			Catégories
+		.item
+			form#formAddCategory.ui.form(name="addcategory",method="post",action="categories")
+				.ui.transparent.action.icon.input
+					input#inputCategory(type="text", placeholder="Ajouter catégorie", name="postCategory", required="", autocomplete="off")
+					i.circular.blue.link.add.icon
 		each category in categoryList
 			.item #{category.name}
 				.ui.blue.label #{category.nb}
