@@ -4,12 +4,12 @@ var async = require('async');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	var postCollection = req.db.get('postCollection');
+	var webCollection = req.db.get('webCollection');
 	var gamesCollection = req.db.get('gamesCollection');
 	var pluginsCollection = req.db.get('pluginsCollection');
 
 	async.parallel([
-		function(callback) {postCollection.find({}, callback)},
+		function(callback) {webCollection.find({}, callback)},
 		function(callback) {gamesCollection.find({}, callback)},
 		function(callback) {pluginsCollection.find({}, callback)}
 	], function(err, result) {
@@ -32,13 +32,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/page-:page', function(req, res, next) {
-	var postCollection = req.db.get('postCollection');
+	var webCollection = req.db.get('webCollection');
 	var gamesCollection = req.db.get('gamesCollection');
 	var pluginsCollection = req.db.get('pluginsCollection');
 	var currentPage = req.params.page - 1;
 
 	async.parallel([
-		function(callback) {postCollection.find({}, callback)},
+		function(callback) {webCollection.find({}, callback)},
 		function(callback) {gamesCollection.find({}, callback)},
 		function(callback) {pluginsCollection.find({}, callback)}
 	], function(err, result) {
