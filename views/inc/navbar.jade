@@ -1,15 +1,16 @@
 header.ui.borderless.fixed.main.menu
-	nav.ui.text.container
+	nav.ui.container
 		a.header.item(href="/").
 			#[img.logo(src="/images/logo.png", alt="ChypRiotE")]
 			Accueil
-		a.item(href="/posts") Web
+		a.item(href="/web") Web
 		a.item(href="/games") Jeux
 		a.item(href="/plugins") Plugins
-		//- .ui.dropdown.item Gestion
-		//- 	i.dropdown.icon
-		//- 	.menu
-		//- 		a.item(href="/posts") Posts
-		//- 		a.item(href="/games") Users
-		//- 		a.item(href="/category") Category
+		.right.menu
+			.ui.dropdown.item Gestion
+				i.dropdown.icon
+				.menu
+					a.item(href="/posts") Posts
+					a.item(href="/games") Users
+					a.item(href="/category") Category
 header.ui.borderless.main.menu.placeholder

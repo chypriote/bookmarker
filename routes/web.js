@@ -18,34 +18,35 @@ var multer = require('multer');
 
 // List of posts
 router.get('/', function(req, res) {
-	var postCollection = req.db.get('postCollection');
-	var categoryCollection = req.db.get('postCategories');
+	var webCollection = req.db.get('webCollection');
+	var categoryCollection = req.db.get('webCategories');
 
 	async.parallel([
-		function(callback) {postCollection.find({}, callback)},
+		function(callback) {webCollection.find({}, callback)},
 		function(callback) {categoryCollection.find({}, callback)}
 		], function(err, result) {
-			res.render('list-posts', {
+			res.render('list', {
 				"postList": result[0].reverse(),
 				"categoryList": result[1],
 				"title": "Liste des posts",
-				"route": "posts"
+				"route": "web"
 			});
 		});
 });
 router.get('/add', function(req, res) {
-	var collection = req.db.get('postCategories');
+	var collection = req.db.get('webCategories');
 	collection.find({}, {}, function(e, docs){
-		res.render('new-posts', {
-			"title":"Ajouter un post",
-			"categoryList": docs
+		res.render('new', {
+			"title":"Ajout web",
+			"categoryList": docs,
+			"type" : "web"
 		});
 	})
 });
 
 // Categories
 	router.get('/categories', function(req, res) {
-		var collection = req.db.get('postCategories');
+		var collection = req.db.get('webCategories');
 		collection.find({}, {}, function(e, docs){
 			res.render('category', {
 				"title":"Ajouter une catégorie",
@@ -55,7 +56,7 @@ router.get('/add', function(req, res) {
 	});
 	router.post('/categories', function(req, res) {
 		var	pCategory = req.body.postCategory;
-		var collection = req.db.get('postCategories');
+		var collection = req.db.get('webCategories');
 
 		collection.insert({
 			"name":pCategory,
@@ -69,14 +70,14 @@ router.get('/add', function(req, res) {
 		});
 	});
 	router.delete('/categories/:id', function(req, res) {
-		var collection = req.db.get('postCategories');
+		var collection = req.db.get('webCategories');
 		collection.remove({'_id':req.params.id}, function(err) {
 			res.send((err === null) ? {msg:''} : {msg:'error: '+err});
 		});
 	});
 
 router.delete('/:id', function(req, res) {
-	var collection = req.db.get('postCollection');
+	var collection = req.db.get('webCollection');
 	collection.remove({'_id':req.params.id}, function(err) {
 		res.send((err === null) ? {msg:''} : {msg:'error: '+err});
 	});
@@ -86,9 +87,9 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 	var pTitle = req.body.inputTitle,
 			pDate = moment().format(),
 			pUrl = req.body.inputUrl,
-			pBody = req.body.inputBody,
+			pDesc = req.body.inputDescription,
 			pCategory = req.body.inputCategory;
-	var collection = req.db.get('postCollection');
+	var collection = req.db.get('webCollection');
 	if (typeof pCategory === 'string') {pCategory = [pCategory];}
 	var pImage = "";
 	if (req.file) pImage = req.file.path;
@@ -97,7 +98,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 		"title":pTitle,
 		"url":pUrl,
 		"date":pDate,
-		"body":pBody,
+		"description":pDesc,
 		"image":pImage.replace('public', ''),
 		"categories":pCategory
 	}, function(err, doc){

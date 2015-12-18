@@ -25,8 +25,8 @@ router.get('/', function(req, res) {
 		function(callback) {gamesCollection.find({}, callback)},
 		function(callback) {categoryCollection.find({}, callback)}
 		], function(err, result) {
-			res.render('list-games', {
-				"gameList": result[0].reverse(),
+			res.render('list', {
+				"postList": result[0].reverse(),
 				"categoryList": result[1],
 				"title": "Liste des jeux disponibles",
 				"route": "games"
@@ -36,9 +36,10 @@ router.get('/', function(req, res) {
 router.get('/add', function(req, res) {
 	var collection = req.db.get('gamesCategories');
 	collection.find({}, {}, function(e, docs){
-		res.render('new-games', {
+		res.render('new', {
 			"title":"Ajouter un jeu",
-			"categoryList": docs
+			"categoryList": docs,
+			"type" : "games"
 		});
 	});
 });
@@ -75,6 +76,22 @@ router.get('/add', function(req, res) {
 		});
 	});
 
+router.get('/:id', function(req, res) {
+	var gamesCollection = req.db.get('gamesCollection');
+	var categoryCollection = req.db.get('gamesCategories');
+
+	async.parallel([
+		function(callback) {gamesCollection.find({'_id':req.params.id}, callback)},
+		function(callback) {categoryCollection.find({}, callback)}
+		], function(err, result) {
+			res.render('single', {
+				"item": result[0][0],
+				"categoryList": result[1],
+				"type": "games"
+			});
+		});
+});
+
 router.delete('/:id', function(req, res) {
 	var collection = req.db.get('gamesCollection');
 	collection.remove({'_id':req.params.id}, function(err) {
@@ -82,7 +99,7 @@ router.delete('/:id', function(req, res) {
 	});
 });
 router.post('/', upload.single('inputImage'), function(req, res) {
-	var	pName = req.body.inputName,
+	var	pTitle = req.body.inputTitle,
 			pUrl = req.body.inputUrl,
 			pDate = moment().format(),
 			pDesc = req.body.inputDescription,
@@ -95,7 +112,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 	var collection = req.db.get('gamesCollection');
 
 	collection.insert({
-		"name":pName,
+		"title":pTitle,
 		"url":pUrl,
 		"date":pDate,
 		"description":pDesc,

@@ -4,36 +4,19 @@ block inside
 	h1= title
 	#post-cards.ui.two.stackable.cards
 		each post in completeList
-			if (post.name)
-				.card.mix.games
-					.content.post-header
-						h3.ui.header 
-							a(href="#{post.url}") #{post.name}
-					.content.post-description
-						.ui.image
-							if post.image != ""
-								img(src="#{post.image}", alt=post.name)
-							else
-								img(src="/images/logo.png", alt=post.name)
-						p= post.description
-					.extra
-						each category in post.categories
-							a.ui.label(href="category/#{category}") #{ucfirst(category)}
-			else
-				.card.mix.posts
-					.content.post-header
-						h3.ui.header 
-							a(href="#{post.url}") #{post.title}
-					.content.post-description
-						.ui.image
-							if post.image != ""
-								img(src="#{post.image}", alt=post.title)
-							else
-								img(src="/images/logo.png", alt=post.title)
-						p= post.body
-					.extra
-						each category in post.categories
-							a.ui.label(href="category/#{category}") #{ucfirst(category)}
+			.card.mix(data-id=post.id, class=post.type)
+				a.content.post-header(href="#{post.url}")
+					h3.ui.header= post.title
+				.content.post-description
+					.ui.image
+						if post.image != ""
+							img(src="#{post.image}", alt=post.title)
+						else
+							img(src="/images/logo.png", alt=post.title)
+					p= post.description
+				.extra
+					each category in post.categories
+						a.ui.label(href="category/#{category}") #{ucfirst(category)}
 	.ui.fluid.pagination.menu
 		- for (var i=1; i <= total; i++)
 			a.pink.item(href="/page-"+i, class=(i == page+1 ? 'active' : '')) #{i}
@@ -45,8 +28,9 @@ block aside
 			.header Filtres
 			i.right.aligned.rotated.counterclockwise.dropdown.icon
 		a.pink.item.filter.reset(href="#all", data-filter="all") Tous
-		a.pink.item.filter(href="#posts", data-filter=".posts") Web
-		a.pink.item.filter(href="#games", data-filter=".games") Jeux
+		a.pink.item.filter(href="#web", data-filter=".web") Web
+		a.pink.item.filter(href="#games", data-filter=".game") Jeux
+		a.pink.item.filter(href="#plugins", data-filter=".plugin") Plugins
 	.ui.vertical.menu
 		h3#layout.ui.header
 			i.list.layout.icon

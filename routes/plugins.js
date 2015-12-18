@@ -25,8 +25,8 @@ router.get('/', function(req, res) {
 		function(callback) {pluginsCollection.find({}, callback)},
 		function(callback) {categoryCollection.find({}, callback)}
 		], function(err, result) {
-			res.render('list-plugins', {
-				"pluginsList": result[0].reverse(),
+			res.render('list', {
+				"postList": result[0].reverse(),
 				"categoryList": result[1],
 				"title": "Liste des plugins",
 				"route": "plugins"
@@ -36,9 +36,10 @@ router.get('/', function(req, res) {
 router.get('/add', function(req, res) {
 	var collection = req.db.get('pluginsCategories');
 	collection.find({}, {}, function(e, docs){
-		res.render('new-plugins', {
+		res.render('new', {
 			"title":"Ajouter un plugin",
-			"categoryList": docs
+			"categoryList": docs,
+			"type" : "plugins"
 		});
 	})
 });
@@ -87,7 +88,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 			pDate = moment().format(),
 			pUrl = req.body.inputUrl,
 			pBody = req.body.inputBody,
-			pCategory = req.body.inputCategory;
+			pDesc = req.body.inputDescription,gory;
 	var collection = req.db.get('pluginsCollection');
 	if (typeof pCategory === 'string') {pCategory = [pCategory];}
 	var pImage = "";
@@ -97,7 +98,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 		"title":pTitle,
 		"url":pUrl,
 		"date":pDate,
-		"body":pBody,
+		"description":pDesc,
 		"image":pImage.replace('public', ''),
 		"categories":pCategory
 	}, function(err, doc){
