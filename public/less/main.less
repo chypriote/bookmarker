@@ -12,7 +12,6 @@ body, html {
 		.ui.image img {min-width: 140px;}
 	}
 	&.menu {
-		margin: 1.4rem 0;
 		.item img.logo {margin-right: 1.5em;}
 		&.fixed {
 			background-color: #FFF;
@@ -128,7 +127,10 @@ body, html {
 
 /*-----------------CATEGORY LSIT--------*/
 	#post-cards {
-		.post-header {flex-grow: 0;}
+		.post-header {
+			flex-grow: 0;
+			&:hover {background: rgba(0,0,0,.03);}
+		}
 		.post-description {
 			display: flex;
 			@media (min-width: 768px) {
@@ -168,3 +170,8 @@ body, html {
 		}
 	}
 
+#formEdit {
+	.ui.small.image {
+		margin-bottom: 1em;
+	}
+}

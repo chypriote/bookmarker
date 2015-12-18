@@ -1,19 +1,15 @@
 body,
 html {
   height: auto;
-  display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
   min-height: 100vh;
 }
 .main.wrapper {
-  -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -24,9 +20,6 @@ html {
 }
 .main.wrapper .ui.image img {
   min-width: 140px;
-}
-.main.menu {
-  margin: 1.4rem 0;
 }
 .main.menu .item img.logo {
   margin-right: 1.5em;
@@ -80,7 +73,6 @@ a.right.floated:hover {
   font-size: 1.5em;
 }
 .accordion .wrapper {
-  display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -90,22 +82,17 @@ a.right.floated:hover {
   min-height: 180px;
 }
 .accordion .wrapper .description {
-  display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
 }
 .accordion .wrapper .description p {
-  -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -113,7 +100,6 @@ a.right.floated:hover {
 .accordion .wrapper .description .bottom {
   border-top: 1px solid #aaa;
   padding: .5em;
-  display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -136,19 +122,18 @@ a.right.floated:hover {
 .ui.vertical.menu h3.header {
   padding: 10px;
   margin: 0;
-  display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   cursor: pointer;
 }
 .ui.vertical.menu h3.header i.dropdown {
-  -webkit-transition: -webkit-transform .3s ease;
-          transition: transform .3s ease;
+  transition: -webkit-transform .3s ease;
+  transition: transform .3s ease;
+  transition: transform .3s ease, -webkit-transform .3s ease;
 }
 @media (min-width: 769px) {
   .ui.vertical.menu h3.header i.dropdown {
@@ -162,7 +147,6 @@ a.right.floated:hover {
   padding-top: .13em;
 }
 .ui.vertical.menu h3 .header {
-  -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -186,25 +170,23 @@ a.right.floated:hover {
 }
 /*-----------------CATEGORY LSIT--------*/
 #post-cards .post-header {
-  -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
       -ms-flex-positive: 0;
           flex-grow: 0;
 }
+#post-cards .post-header:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
 #post-cards .post-description {
-  display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 @media (min-width: 768px) {
   #post-cards .post-description {
-    -webkit-box-align: center;
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
             flex-direction: column;
@@ -212,12 +194,9 @@ a.right.floated:hover {
 }
 @media (min-width: 992px) {
   #post-cards .post-description {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
     -webkit-flex-direction: row;
         -ms-flex-direction: row;
             flex-direction: row;
-    -webkit-box-align: start;
     -webkit-align-items: flex-start;
         -ms-flex-align: start;
             align-items: flex-start;
@@ -227,8 +206,7 @@ a.right.floated:hover {
   margin-bottom: .6em;
 }
 #post-cards .card {
-  -webkit-transition: width .5s ease;
-          transition: width .5s ease;
+  transition: width .5s ease;
 }
 #post-cards img {
   max-width: 100px;
@@ -261,4 +239,7 @@ a.right.floated:hover {
     margin-bottom: 0;
     margin-right: 1em;
   }
+}
+#formEdit .ui.small.image {
+  margin-bottom: 1em;
 }

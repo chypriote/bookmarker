@@ -11,7 +11,7 @@ var monk = require('monk');
 var db = monk('127.0.0.1:27017/bookmarker');
 
 var routes = require('./routes/index');
-var posts = require('./routes/posts');
+var web = require('./routes/web');
 var category = require('./routes/category');
 var games = require('./routes/games');
 var plugins = require('./routes/plugins');
@@ -39,7 +39,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', routes);
-app.use('/posts', posts);
+app.use('/web', web);
 app.use('/category', category);
 app.use('/games', games);
 app.use('/plugins', plugins);

@@ -1,5 +1,7 @@
 $(document).ready(function($) {
-	// show dropdown on hover
+	// activation des modules semanticUI
+	$('.ui.accordion').accordion({exclusive:false});
+	$('select.dropdown').dropdown();
 	$('.main.menu	.ui.dropdown').dropdown({on: 'hover'});
 
 	$('.delete').click(function(e){
@@ -30,38 +32,26 @@ $(document).ready(function($) {
 		if ($('#inputCategory').val() != "")
 			$('#formAddCategory').submit();
 	});
+	// Mobile: rotation du dropdown quand on affiche les filtres
 	$('#filters').click(function() {
 		$('.item.filter').slideToggle();
 		$(this).find('.dropdown').toggleClass('rotated');
-		// 		$check = $(this).find('.dropdown');
-		// 		$check.toggleClass('rotated');
-		// 		if ($check.hasClass('rotated')) {
-		// 			$('.item.filter').slideUp()
-		// 		} else {
-		// 			if ($('.item.filter.active').length > 1){
-		// 				$('.item.filter.active').slideDown();
-		// 				$('.item.filter.reset').slideDown();
-		// 			} else {
-		// 				$('.item.filter').not('.reset').slideDown();
-		// 			}
-		// 		}
 	});
-
+	// Les filtres inutilisés sont cachés lors de l'activation d'un filtre
 	$('.item.filter').click(function() {
 		if ($(this).hasClass('reset'))
 			$('.item.filter').slideDown();
 		else
 			$('.item.filter').not('.reset').not($(this)).removeClass('active').slideUp();
 	});
-
+	// Changement de l'affichage des cards
 	$('#layout').click(function() {
 		$(this).find('i').toggleClass('list layout sidebar');
 		$('#post-cards .post-description').slideToggle();
 		// $('#post-cards .extra').toggle();
 	});
-	
-	$('.ui.accordion').accordion();
-	$('select.dropdown').dropdown();
+
+	//Activation du filtre
 	$('#mixer').mixItUp	({
 		layout: {
 			display: 'block'
