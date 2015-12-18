@@ -62,6 +62,16 @@ $(document).ready(function($) {
 		},
 		load: {
 			sort: 'date:desc'
+		},
+		callbacks: {
+			onMixEnd: function(state) {
+				state.$show.each(function(){
+					if (state.activeFilter != '.mix')
+						$('.accordion').accordion('open', $(this).index());
+					else
+						$('.accordion').accordion('close', $(this).index());
+				});
+			}
 		}
 	});
 	$('#post-cards').mixItUp	({

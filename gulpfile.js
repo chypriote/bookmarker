@@ -23,7 +23,7 @@ gulp.task('images', function(){
 });
 
 gulp.task('styles', function(){
-	gulp.src(['public/less/**/*.less'])
+	gulp.src(['less/**/*.less'])
 		.pipe(plugins.plumber({
 			errorHandler: function (error) {
 				console.log(error.message);
@@ -47,6 +47,6 @@ gulp.task('scripts', function(){
 
 gulp.task('default', ['browser-sync'], function(){
 	gulp.watch("public/js/**/*.js", ['scripts']);
-	gulp.watch("public/less/**/*.less", ['styles']);
+	gulp.watch("less/**/*.less", ['styles']);
 	gulp.watch("views/**/*.jade", ['bs-reload']);
 });

@@ -4,12 +4,12 @@ block accordion
 	each post in postList
 		- var categories = post.categories.map(function(n){return n.toLowerCase();});
 		.mix(class=post.categories, data-date=post.date, data-name=post.title)
-			.title.active.clearfix
+			.title.clearfix
 				i.dropdown.icon
 				.header #{post.title}
 				each category in post.categories
 					.ui.label(data-label="#{category.toLowerCase()}") #{category}
-			.content.active.clearfix
+			.content.clearfix
 				.wrapper
 					.ui.small.image
 						if post.image != ""
