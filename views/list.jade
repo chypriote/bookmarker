@@ -3,7 +3,7 @@ extends template/display.tpl
 block accordion
 	each post in postList
 		- var categories = post.categories.map(function(n){return n.toLowerCase();});
-		.mix(class=post.categories, data-date=post.date, data-name=post.title)
+		.mix(class=post.categories, data-date=post.date, data-name=post.title, data-id=post._id)
 			.title.clearfix
 				i.dropdown.icon
 				.header #{post.title}
@@ -19,7 +19,7 @@ block accordion
 					.description
 						p #{post.description}
 						.bottom
-							if post.type == "game"
+							if post.type == "games"
 								p Poids: #{post.size}
 								a.ui.purple.button(href="#{post.url}", target="_blank").
 									Télécharger

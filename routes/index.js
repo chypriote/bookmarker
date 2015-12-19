@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 		res.render('index', {
 			"completeList": arresult,
 			"title": "ChypRiotE",
-			"page": 1,
+			"page": 0,
 			"total": totalPage
 		});
 	});

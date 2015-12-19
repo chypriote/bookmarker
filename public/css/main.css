@@ -223,6 +223,7 @@ a.right.floated:hover {
 #post-cards img {
   max-width: 100px;
   max-height: 100px;
+  min-width: initial;
 }
 @media (min-width: 768px) {
   #post-cards img {
@@ -233,7 +234,6 @@ a.right.floated:hover {
 @media (min-width: 992px) {
   #post-cards img {
     max-width: 150px;
-    min-width: initial;
   }
 }
 #post-cards .ui.image {

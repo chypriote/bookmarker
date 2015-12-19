@@ -1,8 +1,8 @@
 extends template/default.tpl
 
 block inside
-	h1=item.title
-	form#formEdit.ui.nine.wide.form(name="edit", method="post", action="/", enctype="multipart/form-data")
+	h1=title
+	form#formEdit.ui.nine.wide.form(name="edit", method="post", action="/"+item.type+"/edit/"+item._id, enctype="multipart/form-data")
 		.seven.wide.field
 			label(for="inputTitle") Nom
 			input#inputTitle(type="text", name="inputTitle", value=item.title)
@@ -20,7 +20,9 @@ block inside
 			label(for="inputImage") Image
 			if (item.image != "")
 				img.ui.small.image(src=item.image, alt=item.name)
-			input#inputImage(type="file", name="inputImage")
+				input#inputImage(type="hidden", name="oldImage", value=item.image)
+			else
+				input#inputImage(type="file", name="inputImage")
 		.nine.wide.field
 			label Catégorie
 			select#inputCategory.ui.search.dropdown(multiple="", name="inputCategory", required="")

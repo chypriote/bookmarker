@@ -4,17 +4,20 @@ $(document).ready(function($) {
 	$('select.dropdown').dropdown();
 	$('.main.menu	.ui.dropdown').dropdown({on: 'hover'});
 
-	$('.delete').click(function(e){
+	$('.deletePost').click(function(e){
 		e.preventDefault();
 		$('#categoryName').html($(this).attr('data-name'));
 		$('.modal').attr('data-id', $(this).attr('data-id'));
+		$('.modal').attr('data-type', $(this).attr('data-type'));
+
 		$('.modal')
 			.modal({
 				onApprove: function(){
 					$id = $(this).attr('data-id');
+					$type = $(this).attr('data-type');
 					$.ajax({
 						type: 'DELETE',
-						url: window.location.pathname + '/' + $id
+						url: '/' + $type + '/edit/' + $id
 					}).done(function(response){
 						console.log(response);
 						if (response.msg != '') {
