@@ -4,17 +4,19 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var multer = require('multer');
 
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('127.0.0.1:27017/bookmarker');
+var multer = require('multer'),
+    mongo = require('mongodb'),
+    monk = require('monk'),
+    db = monk('127.0.0.1:27017/bookmarker');
 
-var routes = require('./routes/index');
-var web = require('./routes/web');
-var category = require('./routes/category');
-var games = require('./routes/games');
-var plugins = require('./routes/plugins');
+var routes = require('./routes/index'),
+    admin = require('./routes/admin'),
+    category = require('./routes/category'),
+
+    web = require('./routes/web'),
+    games = require('./routes/games'),
+    plugins = require('./routes/plugins');
 
 var app = express();
 
@@ -39,8 +41,8 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', routes);
+app.use('/admin', admin);
 app.use('/web', web);
-app.use('/category', category);
 app.use('/games', games);
 app.use('/plugins', plugins);
 

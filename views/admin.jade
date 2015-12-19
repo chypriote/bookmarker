@@ -1,0 +1,28 @@
+extends template/default.tpl
+
+block inside
+	h1=title
+	table.ui.striped.table
+		thead
+			tr
+				th Name
+				th.center.aligned Controls
+		tbody
+			each post in postList
+				tr(id=post._id)
+					td= post.title
+					td.center.aligned
+						a.ui.blue.circular.icon.button(href="/"+post.type+"/edit/"+post._id)
+							i.edit.icon
+						a.ui.red.circular.icon.button.deletePost(href="#", data-name=post.title, data-id="#{post._id}", data-type=post.type)
+							i.delete.icon
+	.ui.dimmer
+		.ui.small.modal
+			.header Supprimer post
+			.content
+				p.
+					Confirmer la suppression de 
+					#[strong#categoryName null]
+			.actions
+				.ui.negative.button Non
+				.ui.positive.right.button Oui
