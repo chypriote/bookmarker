@@ -43,6 +43,33 @@ router.get('/add', function(req, res) {
 		});
 	})
 });
+router.post('/', upload.single('inputImage'), function(req, res) {
+	var pTitle = req.body.inputTitle,
+			pUrl = req.body.inputUrl,
+			pDate = moment().format(),
+			pDesc = req.body.inputDescription,
+			pCategory = req.body.inputCategory;
+	if (typeof pCategory === 'string') {pCategory = [pCategory];}
+	var pImage = "";
+	if (req.file) pImage = req.file.path;
+
+	var collection = req.db.get('pluginsCollection');
+
+	collection.insert({
+		"title":pTitle,
+		"url":pUrl,
+		"date":pDate,
+		"description":pDesc,
+		"image":pImage.replace('public', ''),
+		"categories":pCategory
+	}, function(err, doc){
+		if (err) {
+			next(err);
+		} else {
+			res.redirect('/plugins');
+		}
+	});
+});
 
 // Categories
 	router.get('/categories', function(req, res) {
@@ -76,39 +103,55 @@ router.get('/add', function(req, res) {
 		});
 	});
 
-router.delete('/:id', function(req, res) {
-	var collection = req.db.get('pluginsCollection');
-	collection.remove({'_id':req.params.id}, function(err) {
-		res.send((err === null) ? {msg:''} : {msg:'error: '+err});
-	});
-});
+// Gestion item
+	router.get('/edit/:id', function(req, res) {
+		var pluginsCollection = req.db.get('pluginsCollection');
+		var categoryCollection = req.db.get('pluginsCategories');
 
-router.post('/', upload.single('inputImage'), function(req, res) {
-	var pTitle = req.body.inputTitle,
-			pDate = moment().format(),
-			pUrl = req.body.inputUrl,
-			pBody = req.body.inputBody,
-			pDesc = req.body.inputDescription,gory;
-	var collection = req.db.get('pluginsCollection');
-	if (typeof pCategory === 'string') {pCategory = [pCategory];}
-	var pImage = "";
-	if (req.file) pImage = req.file.path;
-
-	collection.insert({
-		"title":pTitle,
-		"url":pUrl,
-		"date":pDate,
-		"description":pDesc,
-		"image":pImage.replace('public', ''),
-		"categories":pCategory
-	}, function(err, doc){
-		if (err) {
-			next(err);
-		} else {
-			res.redirect('/plugins');
-		}
+		async.parallel([
+			function(callback) {pluginsCollection.find({'_id':req.params.id}, callback)},
+			function(callback) {categoryCollection.find({}, callback)}
+			], function(err, result) {
+				var item = result[0][0];
+				res.render('single', {
+					"item":item,
+					"categoryList": result[1],
+					"title": item.title
+				});
+			});
 	});
-});
+	router.delete('/edit/:id', function(req, res) {
+		var collection = req.db.get('pluginsCollection');
+		collection.remove({'_id':req.params.id}, function(err) {
+			res.send((err === null) ? {msg:''} : {msg:'error: '+err});
+		});
+	});
+	router.post('/edit/:id', upload.single('inputImage'), function(req, res) {
+		var	pTitle = req.body.inputTitle,
+				pUrl = req.body.inputUrl,
+				pDate = moment().format(),
+				pDesc = req.body.inputDescription,
+				pCategory = req.body.inputCategory,
+				pImage = "";
+		if (typeof pCategory === 'string') {pCategory = [pCategory];}
+		if (req.body.oldImage != null)
+				pImage = req.body.oldImage;
+		else
+			if (req.file) {pImage = req.file.path;}
+
+		req.db.get('pluginsCollection').update({"_id":req.params.id},
+			{$set:{
+				"title":pTitle,
+				"url":pUrl,
+				"date":pDate,
+				"description":pDesc,
+				"image":pImage.replace('public', ''),
+				"categories":pCategory,
+				"type": "games"
+			}}
+		);
+	});
+
 
 
 module.exports = router;

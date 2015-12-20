@@ -16,7 +16,7 @@ var multer = require('multer');
 	});
 	var upload = multer({storage: storage});
 
-
+// List of posts
 router.get('/', function(req, res) {
 	var gamesCollection = req.db.get('gamesCollection');
 	var categoryCollection = req.db.get('gamesCategories');
@@ -28,7 +28,7 @@ router.get('/', function(req, res) {
 			res.render('list', {
 				"postList": result[0].reverse(),
 				"categoryList": result[1],
-				"title": "Liste des jeux disponibles",
+				"title": "Liste des jeux",
 				"route": "games"
 			});
 		});
