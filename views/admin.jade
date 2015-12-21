@@ -5,11 +5,17 @@ block inside
 	table.ui.striped.table
 		thead
 			tr
+				th Image
 				th Name
 				th.center.aligned Controls
-		tbody
+		tbody#table-mixer
 			each post in postList
-				tr(id=post._id)
+				tr.mix(id=post._id, data-date=post.date, data-name=post.title)
+					td.left.aligned
+						if post.image != ""
+							img.ui.mini.image(src=post.image, alt=post.title)
+						else
+							img.ui.mini.image(src="/images/undefined.png", alt=post.title)
 					td= post.title
 					td.center.aligned
 						a.ui.blue.circular.icon.button(href="/"+post.type+"/edit/"+post._id)
@@ -26,3 +32,20 @@ block inside
 			.actions
 				.ui.negative.button Non
 				.ui.positive.right.button Oui
+
+block aside
+	.ui.vertical.menu
+		h3.ui.header
+			i.bookmark.icon
+			.header Categories
+			i.right.aligned.rotated.counterclockwise.dropdown.icon
+		a.pink.item.filter(href="/admin/web", data-filter=".web") Web
+		a.pink.item.filter(href="/admin/games", data-filter=".game") Jeux
+		a.pink.item.filter(href="/admin/plugins", data-filter=".plugin") Plugins
+	.ui.vertical.menu
+		h3.ui.header
+			i.sort.content.descending.icon
+			.header Ordre
+			i.right.aligned.rotated.counterclockwise.dropdown.icon
+		a.pink.item.sort.reset(href="#date", data-sort="date:desc") Date
+		a.pink.item.sort(href="#nom", data-sort="name:asc") Alphabétique

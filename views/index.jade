@@ -12,7 +12,7 @@ block inside
 						if post.image != ""
 							img(src="#{post.image}", alt=post.title)
 						else
-							img(src="/images/logo.png", alt=post.title)
+							img(src="/images/undefined.png", alt=post.title)
 					p= post.description
 				.extra
 					each category in post.categories
@@ -29,8 +29,8 @@ block aside
 			i.right.aligned.rotated.counterclockwise.dropdown.icon
 		a.pink.item.filter.reset(href="#all", data-filter="all") Tous
 		a.pink.item.filter(href="#web", data-filter=".web") Web
-		a.pink.item.filter(href="#games", data-filter=".game") Jeux
-		a.pink.item.filter(href="#plugins", data-filter=".plugin") Plugins
+		a.pink.item.filter(href="#games", data-filter=".games") Jeux
+		a.pink.item.filter(href="#plugins", data-filter=".plugins") Plugins
 	.ui.vertical.menu
 		h3#layout.ui.header
 			i.list.layout.icon

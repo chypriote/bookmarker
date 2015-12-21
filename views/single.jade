@@ -12,7 +12,7 @@ block inside
 		.nine.wide.field
 			label(for="inputDescription") Description
 			textarea#inputDescription(type="text", name="inputDescription")= item.description
-		if (type == "games")
+		if (item.type == "games")
 			.three.wide.field
 				label(for="inputSize") Poids
 				input#inputSize(type="text", name="inputSize", value=item.size)
@@ -40,3 +40,7 @@ block inside
 			}
 		each category in item.categories
 			script defer("#{category}");
+
+block aside
+	.ui.vertical.menu
+		a.pink.item(href="/admin/"+item.type) Retour

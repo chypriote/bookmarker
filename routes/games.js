@@ -63,7 +63,8 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 		"description":pDesc,
 		"image":pImage.replace('public', ''),
 		"size": pSize,
-		"categories":pCategory
+		"categories":pCategory,
+		"type":"games"
 	}, function(err, doc){
 		if (err) {
 			next(err);
@@ -152,8 +153,12 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 				"size": pSize,
 				"categories":pCategory,
 				"type": "games"
-			}}
-		);
+			}}, function(err, doc) {
+				if (err)
+					next(err);
+				else
+					res.redirect("/admin/games");
+		});
 	});
 
 
