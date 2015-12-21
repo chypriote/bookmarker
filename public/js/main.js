@@ -85,4 +85,12 @@ $(document).ready(function($) {
 			sort: 'date:desc'
 		}
 	});
+	$('#table-mixer').mixItUp({
+		layout: {
+			display: 'table-row'
+		},
+		load: {
+			sort: 'date:desc'
+		}
+	});
 });
