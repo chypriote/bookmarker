@@ -33,15 +33,15 @@ block aside
 			#[i.cubes.icon]
 			Catégories
 		.item
-			form#formAddCategory.ui.form(name="addcategory",method="post",action="categories")
+			form#formAddCategoryTop.ui.form(name="addcategory",method="post",action="categories")
 				.ui.transparent.action.icon.input
-					input#inputCategory(type="text", placeholder="Ajouter catégorie", name="postCategory", required="", autocomplete="off")
+					input#inputCategoryTop(type="text", placeholder="Ajouter catégorie", name="postCategory", required="", autocomplete="off")
 					i.circular.blue.link.add.icon
 		each category in categoryList
 			.item #{category.name}
 				.ui.blue.label #{category.nb}
 		.item
-			form#formAddCategory.ui.form(name="addcategory",method="post",action="categories")
+			form#formAddCategoryBot.ui.form(name="addcategory",method="post",action="categories")
 				.ui.transparent.action.icon.input
-					input#inputCategory(type="text", placeholder="Ajouter catégorie", name="postCategory", required="", autocomplete="off")
+					input#inputCategoryBot(type="text", placeholder="Ajouter catégorie", name="postCategory", required="", autocomplete="off")
 					i.circular.blue.link.add.icon

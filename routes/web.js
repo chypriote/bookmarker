@@ -66,7 +66,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 		if (err) {
 			next(err);
 		} else {
-			res.redirect('/posts');
+			res.redirect('/web');
 		}
 	});
 });
@@ -92,7 +92,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 			if (err) {
 				req.send("There was a problem adding the category to the database");
 			} else {
-				res.redirect('/posts/add');
+				res.redirect('/web/add');
 			}
 		});
 	});

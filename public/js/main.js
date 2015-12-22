@@ -4,6 +4,7 @@ $(document).ready(function($) {
 	$('select.dropdown').dropdown();
 	$('.main.menu	.ui.dropdown').dropdown({on: 'hover'});
 
+
 	$('.deletePost').click(function(e){
 		e.preventDefault();
 		$('#categoryName').html($(this).attr('data-name'));
@@ -32,8 +33,11 @@ $(document).ready(function($) {
 	});
 
 	$('.vertical.menu i.add.icon').click(function() {
-		if ($('#inputCategory').val() != "")
-			$('#formAddCategory').submit();
+		console.log($('#inputCategory'));
+		if ($('#inputCategoryBot').val() != "")
+			$('#formAddCategoryBot').submit();
+		else if ($('#inputCategoryTop').val() != "")
+			$('#formAddCategoryTop').submit();
 	});
 	// Mobile: rotation du dropdown quand on affiche les filtres
 	$('#filters').click(function() {
