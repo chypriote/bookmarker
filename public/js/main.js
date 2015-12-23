@@ -3,13 +3,7 @@ $(document).ready(function($) {
 	$('.ui.accordion').accordion({exclusive:false});
 	$('select.dropdown').dropdown();
 	$('.main.menu	.ui.dropdown').dropdown({on: 'hover'});
-	$('.ui.image img')
-	  .visibility({
-	    type       : 'image',
-	    transition : 'fade in',
-	    duration   : 1000
-	  })
-	;
+
 
 	$('.deletePost').click(function(e){
 		e.preventDefault();
