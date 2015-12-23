@@ -10,7 +10,7 @@ block inside
 				.content.post-description
 					.ui.image
 						if post.image != ""
-							- post.image = post.image.replace('/\\/g', '/'); 
+							- post.image = post.image.split('\\').join('/'); 
 							img(src="#{post.image}", alt=post.title)
 						else
 							img(src="/images/undefined.png", alt=post.title)
