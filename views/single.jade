@@ -19,6 +19,7 @@ block inside
 		.seven.wide.field
 			label(for="inputImage") Image
 			if (item.image != "")
+				- item.image = item.image.replaceAll('\\', '/'); 
 				img.ui.small.image(src=item.image, alt=item.name)
 				input#inputImage(type="hidden", name="oldImage", value=item.image)
 			else
