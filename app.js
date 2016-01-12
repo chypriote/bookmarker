@@ -8,7 +8,10 @@ var bodyParser = require('body-parser');
 var multer = require('multer'),
     mongo = require('mongodb'),
     monk = require('monk'),
-    db = monk('127.0.0.1:27017/bookmarker');
+    dbDev = monk('127.0.0.1:27017/bookmarker'),
+    dbProd = monk('127.0.0.1:27017/production');
+
+db = (process.env.NODE_ENV == 'production') ? dbProd : dbDev;
 
 var routes = require('./routes/index'),
     admin = require('./routes/admin'),
