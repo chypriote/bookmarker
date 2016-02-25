@@ -59,6 +59,9 @@ a.right.floated:hover {
 }
 .ui.pagination.menu {
   margin: 1rem auto;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
 }
 /*-----------ACCORDION-----------*/
 .ui.fluid.accordion {
@@ -198,6 +201,7 @@ a.right.floated:hover {
   #post-cards .post-description {
     -webkit-align-items: center;
         -ms-flex-align: center;
+                -ms-grid-row-align: center;
             align-items: center;
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
@@ -211,6 +215,7 @@ a.right.floated:hover {
             flex-direction: row;
     -webkit-align-items: flex-start;
         -ms-flex-align: start;
+                -ms-grid-row-align: flex-start;
             align-items: flex-start;
   }
 }
