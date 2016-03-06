@@ -8,7 +8,7 @@ var moment = require("moment");
 var multer = require('multer');
 	var storage = multer.diskStorage({
 	  destination: function (req, file, cb) {
-	    cb(null, './public/images/logos');
+	    cb(null, './public/images/jeux');
 	  },
 	  filename: function (req, file, cb) {
 	    cb(null, file.originalname);
@@ -18,75 +18,43 @@ var multer = require('multer');
 
 // List of posts
 router.get('/', function(req, res) {
-	var webCollection = req.db.get('webCollection');
-	var categoryCollection = req.db.get('webCategories');
+	var gamesCollection = req.db.get('gamesCollection');
+	var categoryCollection = req.db.get('gamesCategories');
 
 	async.parallel([
-		function(callback) {webCollection.find({}, callback)},
+		function(callback) {gamesCollection.find({}, callback)},
 		function(callback) {categoryCollection.find({}, callback)}
 		], function(err, result) {
-
-		var postList = result[0];
-		var totalPage = Math.floor(postList.length / 25);
-		postList = postList.reverse().slice(0, 25);
-
 			res.render('list', {
-				"postList": postList,
+				"postList": result[0].reverse(),
 				"categoryList": result[1],
-				"title": "Liste des posts",
-				"page": 0,
-				"total": totalPage,
-				"route": "web"
+				"title": "Liste des jeux",
+				"route": "games"
 			});
 		});
 });
-
-router.get('/page-:page', function(req, res, next) {
-	var webCollection = req.db.get('webCollection');
-	var categoryCollection = req.db.get('webCategories');
-	var currentPage = req.params.page - 1;
-
-	async.parallel([
-		function(callback) {webCollection.find({}, callback)},
-		function(callback) {categoryCollection.find({}, callback)}
-	], function(err, result) {
-
-		var postList = result[0];
-		var totalPage = Math.floor(postList.length / 25) + 1;
-
-		postList = postList.reverse().slice(currentPage * 25, currentPage * 25 + 25);
-
-		res.render('list', {
-			"postList": postList,
-			"categoryList": result[1],
-			"title": "Liste des posts - Page " + currentPage,
-			"page": currentPage,
-			"total": totalPage,
-			"route": "web"
+router.get('/add', function(req, res) {
+	var collection = req.db.get('gamesCategories');
+	collection.find({}, {}, function(e, docs){
+		res.render('new', {
+			"title":"Ajouter un jeu",
+			"categoryList": docs,
+			"type" : "games"
 		});
 	});
 });
-
-router.get('/add', function(req, res) {
-	var collection = req.db.get('webCategories');
-	collection.find({}, {}, function(e, docs){
-		res.render('new', {
-			"title":"Ajout web",
-			"categoryList": docs,
-			"type" : "web"
-		});
-	})
-});
 router.post('/', upload.single('inputImage'), function(req, res) {
-	var pTitle = req.body.inputTitle,
-			pDate = moment().format(),
+	var	pTitle = req.body.inputTitle,
 			pUrl = req.body.inputUrl,
+			pDate = moment().format(),
 			pDesc = req.body.inputDescription,
+			pSize = req.body.inputSize,
 			pCategory = req.body.inputCategory;
-	var collection = req.db.get('webCollection');
 	if (typeof pCategory === 'string') {pCategory = [pCategory];}
 	var pImage = "";
 	if (req.file) pImage = req.file.path;
+
+	var collection = req.db.get('gamesCollection');
 
 	collection.insert({
 		"title":pTitle,
@@ -94,30 +62,31 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 		"date":pDate,
 		"description":pDesc,
 		"image":pImage.replace('public', ''),
+		"size": pSize,
 		"categories":pCategory,
-		"type":"web"
+		"type":"games"
 	}, function(err, doc){
 		if (err) {
 			next(err);
 		} else {
-			res.redirect('/web');
+			res.redirect('/games');
 		}
 	});
 });
 
 // Categories
 	router.get('/categories', function(req, res) {
-		var collection = req.db.get('webCategories');
+		var collection = req.db.get('gamesCategories');
 		collection.find({}, {}, function(e, docs){
 			res.render('category', {
-				"title":"Ajouter une catégorie",
+				"title":"Ajouter une catégorie de jeu",
 				"categoryList": docs
 			});
 		});
 	});
 	router.post('/categories', function(req, res) {
 		var	pCategory = req.body.postCategory;
-		var collection = req.db.get('webCategories');
+		var collection = req.db.get('gamesCategories');
 
 		collection.insert({
 			"name":pCategory,
@@ -126,12 +95,12 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 			if (err) {
 				req.send("There was a problem adding the category to the database");
 			} else {
-				res.redirect('/web/add');
+				res.redirect('/games/add');
 			}
 		});
 	});
 	router.delete('/categories/:id', function(req, res) {
-		var collection = req.db.get('webCategories');
+		var collection = req.db.get('gamesCategories');
 		collection.remove({'_id':req.params.id}, function(err) {
 			res.send((err === null) ? {msg:''} : {msg:'error: '+err});
 		});
@@ -139,23 +108,23 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 
 // Gestion item
 	router.get('/edit/:id', function(req, res) {
-		var webCollection = req.db.get('webCollection');
-		var categoryCollection = req.db.get('webCategories');
+		var gamesCollection = req.db.get('gamesCollection');
+		var categoryCollection = req.db.get('gamesCategories');
 
 		async.parallel([
-			function(callback) {webCollection.find({'_id':req.params.id}, callback)},
+			function(callback) {gamesCollection.find({'_id':req.params.id}, callback)},
 			function(callback) {categoryCollection.find({}, callback)}
 			], function(err, result) {
 				var item = result[0][0];
 				res.render('single', {
-					"item":item,
+					"item": item,
 					"categoryList": result[1],
 					"title": item.title
 				});
 			});
 	});
 	router.delete('/edit/:id', function(req, res) {
-		var collection = req.db.get('webCollection');
+		var collection = req.db.get('gamesCollection');
 		collection.remove({'_id':req.params.id}, function(err) {
 			res.send((err === null) ? {msg:''} : {msg:'error: '+err});
 		});
@@ -165,6 +134,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 				pUrl = req.body.inputUrl,
 				pDate = moment().format(),
 				pDesc = req.body.inputDescription,
+				pSize = req.body.inputSize,
 				pCategory = req.body.inputCategory,
 				pImage = "";
 		if (typeof pCategory === 'string') {pCategory = [pCategory];}
@@ -173,20 +143,21 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 		else
 			if (req.file) {pImage = req.file.path;}
 
-		req.db.get('webCollection').update({"_id":req.params.id},
+		req.db.get('gamesCollection').update({"_id":req.params.id},
 			{$set:{
 				"title":pTitle,
 				"url":pUrl,
 				"date":pDate,
 				"description":pDesc,
 				"image":pImage.replace('public', ''),
+				"size": pSize,
 				"categories":pCategory,
-				"type": "web"
+				"type": "games"
 			}}, function(err, doc) {
 				if (err)
 					next(err);
 				else
-					res.redirect("/admin/web");
+					res.redirect("/admin/games");
 		});
 	});
 
