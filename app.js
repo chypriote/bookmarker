@@ -19,16 +19,16 @@ app.locals.moment = require('moment');
 app.locals.ucfirst = function(value){return value.charAt(0).toUpperCase() + value.slice(1);};
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'site/views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'site/assets/images', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'site/assets')));
 
 app.use(function(req, res, next) {
 	req.db = db;
@@ -36,7 +36,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/api', require('./api/index.js'));
-app.use('/', require('./routes/index.js'));
+app.use('/', require('./site/routes/index.js'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
