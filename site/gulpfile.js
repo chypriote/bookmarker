@@ -37,7 +37,7 @@ gulp.task('scripts', function(){
 		.pipe(g.plumber({
 			errorHandler: function (error) {console.log(error.message);this.emit('end');
 		}}))
-		.pipe(g.xo())
+		// .pipe(g.xo())
 		//.pipe(g.rename({suffix: '.min'}))
 		//.pipe(g.uglify())
 		.pipe(gulp.dest('public/js'))
