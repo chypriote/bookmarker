@@ -7,7 +7,7 @@ var browserSync = require('browser-sync');
 
 gulp.task('browser-sync', function() {
 	browserSync({
-		proxy: "127.0.0.1:3000",
+		proxy: "127.0.0.1:2000",
 		online: false
 	});
 });
