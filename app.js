@@ -13,16 +13,6 @@ var multer = require('multer'),
 
 db = (process.env.NODE_ENV == 'production') ? dbProd : dbDev;
 
-var routes = require('./routes/v1/index'),
-		admin = require('./routes/v1/admin'),
-		category = require('./routes/v1/category'),
-
-		web = require('./routes/v1/web'),
-		games = require('./routes/v1/games'),
-		plugins = require('./routes/v1/plugins');
-
-var apiweb = require('./routes/v2/web');
-
 var app = express();
 
 app.locals.moment = require('moment');
@@ -45,13 +35,8 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.use('/', routes);
-app.use('/admin', admin);
-app.use('/web', web);
-app.use('/games', games);
-app.use('/plugins', plugins);
-
-app.use('/api/web', apiweb);
+app.use('/api', require('./api/index.js'));
+app.use('/', require('./routes/index.js'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -60,12 +45,8 @@ app.use(function(req, res, next) {
 	next(err);
 });
 
+// ----------------
 // error handlers
-	app.use(function(err, req, res, next) {
-		res.status(err.status || 500);
-		res.send(err);
-	});
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
