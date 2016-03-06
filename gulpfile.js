@@ -41,8 +41,9 @@ var targetDir = 'site/assets/';
 // copy tasks
 	gulp.task('images', function(){
 		gulp.src(baseDir + 'assets/images/**/*')
-			.pipe(g.cache(g.imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
-			.pipe(gulp.dest(targetDir + 'images/'));
+			.pipe(g.imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
+			.pipe(g.changed(targetDir + 'images'))
+			.pipe(gulp.dest(targetDir + 'images'));
 	});
 	gulp.task('fonts', function() {
 		gulp.src(baseDir + 'assets/fonts/**/*')
