@@ -1,78 +1,77 @@
 {
-  "name": "express",
-  "version": "1.4.0",
-  "description": "ChypRiotE bookmarker app",
-  "keywords": [
-    "ChypRiotE",
-    "Node.js",
-    "application",
-    "bookmarker"
-  ],
-  "author": {
-    "name": "ChypRiotE",
-    "email": "nicolastem@hotmail.fr",
-    "url": "http://cv.chypriote.me"
-  },
-  "engines": {
-    "node": ">= 5.0.0",
-    "npm": ">= 3.7.0"
-  },
-  "main": "app.js",
-  "private": true,
-  "scripts": {
-    "start": "node bin/www"
-  },
-  "dependencies": {
-    "async": "^1.5.2",
-    "body-parser": "^1.15.0",
-    "cookie-parser": "^1.4.1",
-    "debug": "^2.2.0",
-    "express": "^4.13.4",
-    "express-session": "^1.13.0",
-    "jade": "^1.11.0",
-    "jquery": "^2.2.1",
-    "moment": "^2.11.2",
-    "mongodb": "^1.4.0",
-    "monk": "^1.0.1",
-    "morgan": "^1.7.0",
-    "multer": "^1.1.0",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
-    "semantic-ui": "^2.1.8",
-    "serve-favicon": "~2.3.0"
-  },
-  "devDependencies": {
-    "browser-sync": "^2.11.1",
-    "del": "^2.2.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-cache": "^0.4.2",
-    "gulp-changed": "^1.3.0",
-    "gulp-csslint": "^0.2.2",
-    "gulp-cssnano": "^2.1.1",
-    "gulp-imagemin": "^2.4.0",
-    "gulp-less": "^3.0.5",
-    "gulp-lesshint": "^1.1.0",
-    "gulp-load-plugins": "^1.2.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.3",
-    "gulp-xo": "^0.9.0",
-    "run-sequence": "^1.1.5"
-  },
-  "xo": {
-    "open": true,
-    "rules": {
-      "one-var": [
-        2,
-        "never"
-      ],
-      "no-mixed-spaces-and-tabs": [
-        2,
-        "smart-tabs"
-      ],
-      "linebreak-style": 0
-    }
-  }
+	"name": "express",
+	"version": "1.4.0",
+	"description": "ChypRiotE bookmarker app",
+	"keywords": [
+		"ChypRiotE",
+		"Node.js",
+		"application",
+		"bookmarker"
+	],
+	"author": {
+		"name": "ChypRiotE",
+		"email": "nicolastem@hotmail.fr",
+		"url": "http://cv.chypriote.me"
+	},
+	"engines": {
+		"node": ">= 5.0.0",
+		"npm": ">= 3.7.0"
+	},
+	"main": "app.js",
+	"private": true,
+	"scripts": {
+		"start": "node bin/www"
+	},
+	"dependencies": {
+		"async": "^1.5.2",
+		"body-parser": "^1.15.0",
+		"cookie-parser": "^1.4.1",
+		"debug": "^2.2.0",
+		"express": "^4.13.4",
+		"express-session": "^1.13.0",
+		"jade": "^1.11.0",
+		"jquery": "^2.2.1",
+		"moment": "^2.11.2",
+		"mongodb": "^1.4.0",
+		"monk": "^1.0.1",
+		"morgan": "^1.7.0",
+		"multer": "^1.1.0",
+		"passport": "^0.3.2",
+		"passport-local": "^1.0.0",
+		"serve-favicon": "~2.3.0"
+	},
+	"devDependencies": {
+		"browser-sync": "^2.11.1",
+		"del": "^2.2.0",
+		"gulp": "^3.9.1",
+		"gulp-autoprefixer": "^3.1.0",
+		"gulp-cache": "^0.4.2",
+		"gulp-changed": "^1.3.0",
+		"gulp-csslint": "^0.2.2",
+		"gulp-cssnano": "^2.1.1",
+		"gulp-imagemin": "^2.4.0",
+		"gulp-less": "^3.0.5",
+		"gulp-lesshint": "^1.1.0",
+		"gulp-load-plugins": "^1.2.0",
+		"gulp-plumber": "^1.1.0",
+		"gulp-rename": "^1.2.2",
+		"gulp-sourcemaps": "^1.6.0",
+		"gulp-uglify": "^1.5.3",
+		"gulp-xo": "^0.9.0",
+		"run-sequence": "^1.1.5"
+	},
+	"xo": {
+		"open": true,
+		"rules": {
+			"one-var": [
+				2,
+				"never"
+			],
+			"no-mixed-spaces-and-tabs": [
+				2,
+				"smart-tabs"
+			],
+			"linebreak-style": 0
+		}
+	}
 }
