@@ -1,0 +1,2 @@
+# bookmarker
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/48077dd6d394401aa4ee7a939239c227)](https://www.codacy.com/app/nicolastem/bookmarker?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=chypriote/bookmarker&amp;utm_campaign=badger)
