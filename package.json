@@ -20,7 +20,9 @@
   "main": "app.js",
   "private": true,
   "scripts": {
-    "start": "node bin/www"
+    "start": "node bin/www",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "async": "^1.5.0",
@@ -37,7 +39,8 @@
     "morgan": "^1.6.1",
     "multer": "^1.1.0",
     "pug": "^2.0.0-beta5",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "snyk": "^1.68.1"
   },
   "devDependencies": {
     "browser-sync": "^2.10.1",
@@ -49,5 +52,6 @@
     "gulp-load-plugins": "^1.1.0",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2"
-  }
+  },
+  "snyk": true
 }
