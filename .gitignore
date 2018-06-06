@@ -4,3 +4,6 @@ old
 user*
 \#*\#
 dump
+public/images
+public/css/main.css
+.idea
