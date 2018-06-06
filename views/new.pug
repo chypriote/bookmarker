@@ -21,9 +21,9 @@ block inside
 			input#inputImage(type="file", name="inputImage")
 		.seven.wide.field
 			label Catégorie
-			select#inputCategory.ui.search.dropdown(multiple="", name="inputCategory", required="")
+			select#inputCategory.ui.search.dropdown(name="inputCategory", multiple, required)
 				each category in categoryList
-					option(value="#{category.name}") #{category.name}
+					option(value=category.name) #{category.name}
 		.nine.wide.field
 			button#btnSubmit.ui.submit.right.floated.button(type="submit") Enregistrer
 		

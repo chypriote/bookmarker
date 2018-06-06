@@ -28,7 +28,7 @@ block inside
 			label Catégorie
 			select#inputCategory.ui.search.dropdown(multiple="", name="inputCategory", required="")
 				each category in categoryList
-					option(value="#{category.name}") #{category.name}
+					option(value=category.name) #{category.name}
 		.nine.wide.field
 			button#btnSubmit.ui.submit.right.floated.button(type="submit") Enregistrer
 

@@ -5,22 +5,22 @@ block inside
 	#post-cards.ui.two.stackable.cards
 		each post in completeList
 			.card.mix(data-id=post.id, class=post.type)
-				a.content.post-header(href="#{post.url}")
+				a.content.post-header(href=post.url)
 					h3.ui.header= post.title
 				.content.post-description
 					.ui.image
 						if post.image != ""
 							- post.image = post.image.split('\\').join('/'); 
-							img(src="#{post.image}", alt=post.title)
+							img(src=post.image, alt=post.title)
 						else
 							img(src="/images/undefined.png", alt=post.title)
 					p= post.description
 				.extra
 					each category in post.categories
-						a.ui.label(href="category/#{category}") #{ucfirst(category)}
+						a.ui.label(href=`category/${category}`) #{ucfirst(category)}
 	.ui.fluid.pagination.menu
 		- for (var i=1; i <= total; i++)
-			a.pink.item(href="/page-"+i, class=(i == page+1 ? 'active' : '')) #{i}
+			a.pink.item(href=`/page-${i}`, class=(i == page+1 ? 'active' : '')) #{i}
 
 block aside
 	.ui.vertical.menu

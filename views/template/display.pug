@@ -23,6 +23,6 @@ block aside
 		a.pink.item.filter.reset(href="#all", data-filter="all") Voir tous
 		each category in categoryList
 			a.pink.item.filter(
-				href="##{category.name.toLowerCase()}", 
-				data-filter=".#{category.name}",
+				href=`#${category.name.toLowerCase()}`, 
+				data-filter=`.${category.name}`,
 			) #{category.name}

@@ -54,5 +54,5 @@ gulp.task('build', gulp.parallel('styles', 'scripts', 'images'));
 gulp.task('default', gulp.series('browser-sync', function(){
 	gulp.watch("public/js/**/*.js", ['scripts']);
 	gulp.watch("less/**/*.less", ['styles']);
-	gulp.watch("views/**/*.jade", ['bs-reload']);
+	gulp.watch("views/**/*.pug", ['bs-reload']);
 }));
