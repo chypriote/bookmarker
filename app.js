@@ -20,6 +20,7 @@ var routes = require('./routes/index'),
     web = require('./routes/web'),
     games = require('./routes/games'),
     plugins = require('./routes/plugins');
+    vuejs = require('./routes/vuejs');
 
 var app = express();
 
@@ -48,6 +49,7 @@ app.use('/admin', admin);
 app.use('/web', web);
 app.use('/games', games);
 app.use('/plugins', plugins);
+app.use('/vuejs', vuejs);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

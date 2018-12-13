@@ -7,14 +7,16 @@ router.get('/', function(req, res, next) {
 	var webCollection = req.db.get('webCollection');
 	var gamesCollection = req.db.get('gamesCollection');
 	var pluginsCollection = req.db.get('pluginsCollection');
+	var vuejsCollection = req.db.get('vuejsCollection');
 
 	async.parallel([
 		function(callback) {webCollection.find({}, callback)},
 		function(callback) {gamesCollection.find({}, callback)},
-		function(callback) {pluginsCollection.find({}, callback)}
+		function(callback) {pluginsCollection.find({}, callback)},
+		function(callback) {vuejsCollection.find({}, callback)}
 	], function(err, result) {
 
-		var arresult = result[0].concat(result[1]).concat(result[2]);
+		var arresult = result[0].concat(result[1]).concat(result[3]);
 		var totalPage = Math.floor(arresult.length / 10);
 
 		arresult = arresult.sort(function(a, b) {
@@ -35,15 +37,17 @@ router.get('/page-:page', function(req, res, next) {
 	var webCollection = req.db.get('webCollection');
 	var gamesCollection = req.db.get('gamesCollection');
 	var pluginsCollection = req.db.get('pluginsCollection');
+	var vuejsCollection = req.db.get('vuejsCollection');
 	var currentPage = req.params.page - 1;
 
 	async.parallel([
 		function(callback) {webCollection.find({}, callback)},
 		function(callback) {gamesCollection.find({}, callback)},
-		function(callback) {pluginsCollection.find({}, callback)}
+		function(callback) {pluginsCollection.find({}, callback)},
+		function(callback) {vuejsCollection.find({}, callback)}
 	], function(err, result) {
 
-		var arresult = result[0].concat(result[1]).concat(result[2]);
+		var arresult = result[0].concat(result[1]).concat(result[3]);
 		var totalPage = Math.floor(arresult.length / 10) + 1;
 
 		arresult = arresult.sort(function(a, b) {

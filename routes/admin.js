@@ -16,9 +16,9 @@ router.get('/plugins', function(req, res) {
 	var collection = req.db.get('pluginsCollection');
 	collection.find({}, {}, function(e, docs){
 		res.render('admin', {
-			"title":"Administration des jeux",
+			"title":"Administration des plugins",
 			"postList": docs,
-			"route": "games"
+			"route": "plugins"
 		});
 	});
 });
@@ -27,9 +27,20 @@ router.get('/web', function(req, res) {
 	var collection = req.db.get('webCollection');
 	collection.find({}, {}, function(e, docs){
 		res.render('admin', {
-			"title":"Administration des jeux",
+			"title":"Administration des web",
 			"postList": docs,
-			"route": "games"
+			"route": "web"
+		});
+	});
+});
+
+router.get('/vuejs', function(req, res) {
+	var collection = req.db.get('vuejsCollection');
+	collection.find({}, {}, function(e, docs){
+		res.render('admin', {
+			"title":"Administration des vuejs",
+			"postList": docs,
+			"route": "vuejs"
 		});
 	});
 });
