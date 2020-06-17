@@ -50,7 +50,7 @@ router.post('/', upload.single('inputImage'), async (req, res) => {
 			pSize = req.body.inputSize,
 			pCategory = req.body.inputCategory;
 	if (typeof pCategory === 'string') {pCategory = [pCategory];}
-	const pImage = "";
+	let pimage = "";
 	if (req.file) pImage = req.file.path;
 
 	try {
@@ -132,8 +132,8 @@ router.post('/edit/:id', upload.single('inputImage'), function(req, res) {
 			pDate = moment().format(),
 			pDesc = req.body.inputDescription,
 			pSize = req.body.inputSize,
-			pCategory = req.body.inputCategory,
-			pImage = "";
+			pCategory = req.body.inputCategory;
+	let 	pImage = "";
 	if (typeof pCategory === 'string') {pCategory = [pCategory];}
 	if (req.body.oldImage != null)
 			pImage = req.body.oldImage;

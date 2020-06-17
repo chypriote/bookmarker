@@ -49,7 +49,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 			pCategory = req.body.inputCategory;
 	const collection = req.db.get('webCollection');
 	if (typeof pCategory === 'string') {pCategory = [pCategory];}
-	const pImage = "";
+	let pImage = "";
 	if (req.file) pImage = req.file.path;
 
 	collection.insert({
@@ -80,7 +80,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 		});
 	});
 	router.post('/categories', function(req, res) {
-		const	pCategory = req.body.postCategory;
+		const pCategory = req.body.postCategory;
 		const collection = req.db.get('webCategories');
 
 		collection.insert({
@@ -129,8 +129,8 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 				pUrl = req.body.inputUrl,
 				pDate = moment().format(),
 				pDesc = req.body.inputDescription,
-				pCategory = req.body.inputCategory,
-				pImage = "";
+				pCategory = req.body.inputCategory;
+		let		pImage = "";
 		if (typeof pCategory === 'string') {pCategory = [pCategory];}
 		if (req.body.oldImage != null)
 				pImage = req.body.oldImage;

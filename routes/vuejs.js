@@ -48,7 +48,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 			pDesc = req.body.inputDescription,
 			pCategory = req.body.inputCategory;
 	if (typeof pCategory === 'string') {pCategory = [pCategory];}
-	const pImage = "";
+	let pImage = "";
 	if (req.file) pImage = req.file.path;
 
 	const collection = req.db.get('vuejsCollection');
@@ -81,12 +81,12 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 		});
 	});
 	router.post('/categories', function(req, res) {
-		const	pCategory = req.body.postCategory;
+		const pCategory = req.body.postCategory;
 		const collection = req.db.get('vuejsCategories');
 
 		collection.insert({
-			"name":pCategory,
-			"nb":0
+			"name": pCategory,
+			"nb": 0
 		}, function(err, doc){
 			if (err) {
 				req.send("There was a problem adding the category to the database");
@@ -130,8 +130,8 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 				pUrl = req.body.inputUrl,
 				pDate = moment().format(),
 				pDesc = req.body.inputDescription,
-				pCategory = req.body.inputCategory,
-				pImage = "";
+				pCategory = req.body.inputCategory;
+		let 	pImage = "";
 		if (typeof pCategory === 'string') {pCategory = [pCategory];}
 		if (req.body.oldImage != null)
 				pImage = req.body.oldImage;

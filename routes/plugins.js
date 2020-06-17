@@ -48,7 +48,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 			pDesc = req.body.inputDescription,
 			pCategory = req.body.inputCategory;
 	if (typeof pCategory === 'string') {pCategory = [pCategory];}
-	const pImage = "";
+	let pimage = "";
 	if (req.file) pImage = req.file.path;
 
 	const collection = req.db.get('pluginsCollection');
@@ -130,8 +130,8 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 				pUrl = req.body.inputUrl,
 				pDate = moment().format(),
 				pDesc = req.body.inputDescription,
-				pCategory = req.body.inputCategory,
-				pImage = "";
+				pCategory = req.body.inputCategory;
+		let 	pImage = "";
 		if (typeof pCategory === 'string') {pCategory = [pCategory];}
 		if (req.body.oldImage != null)
 				pImage = req.body.oldImage;

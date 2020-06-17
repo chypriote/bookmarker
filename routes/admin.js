@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/games', function(req, res) {
-	var collection = req.db.get('gamesCollection');
+	const collection = req.db.get('gamesCollection');
 	collection.find({}, {}, function(e, docs){
 		res.render('admin', {
 			"title":"Administration des jeux",
@@ -13,7 +13,7 @@ router.get('/games', function(req, res) {
 });
 
 router.get('/plugins', function(req, res) {
-	var collection = req.db.get('pluginsCollection');
+	const collection = req.db.get('pluginsCollection');
 	collection.find({}, {}, function(e, docs){
 		res.render('admin', {
 			"title":"Administration des plugins",
@@ -24,7 +24,7 @@ router.get('/plugins', function(req, res) {
 });
 
 router.get('/web', function(req, res) {
-	var collection = req.db.get('webCollection');
+	const collection = req.db.get('webCollection');
 	collection.find({}, {}, function(e, docs){
 		res.render('admin', {
 			"title":"Administration des web",
@@ -35,7 +35,7 @@ router.get('/web', function(req, res) {
 });
 
 router.get('/vuejs', function(req, res) {
-	var collection = req.db.get('vuejsCollection');
+	const collection = req.db.get('vuejsCollection');
 	collection.find({}, {}, function(e, docs){
 		res.render('admin', {
 			"title":"Administration des vuejs",
