@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res, next) {
 	const webCollection = req.db.get('webCollection');
 	const gamesCollection = req.db.get('gamesCollection');
 	const pluginsCollection = req.db.get('pluginsCollection');
 	const vuejsCollection = req.db.get('vuejsCollection');
 
-	Promise.all([
+	await Promise.all([
 		function(callback) {webCollection.find({}, callback)},
 		function(callback) {gamesCollection.find({}, callback)},
 		function(callback) {pluginsCollection.find({}, callback)},
@@ -32,14 +32,14 @@ router.get('/', function(req, res, next) {
 	});
 });
 
-router.get('/page-:page', function(req, res, next) {
+router.get('/page-:page', async function(req, res, next) {
 	const webCollection = req.db.get('webCollection');
 	const gamesCollection = req.db.get('gamesCollection');
 	const pluginsCollection = req.db.get('pluginsCollection');
 	const vuejsCollection = req.db.get('vuejsCollection');
 	const currentPage = req.params.page - 1;
 
-	Promise.all([
+	await Promise.all([
 		function(callback) {webCollection.find({}, callback)},
 		function(callback) {gamesCollection.find({}, callback)},
 		function(callback) {pluginsCollection.find({}, callback)},

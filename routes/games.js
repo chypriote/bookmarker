@@ -104,11 +104,11 @@ router.delete('/categories/:id', function(req, res) {
 });
 
 // Gestion item
-router.get('/edit/:id', function(req, res) {
+router.get('/edit/:id', async function(req, res) {
 	const gamesCollection = req.db.get('gamesCollection');
 	const categoryCollection = req.db.get('gamesCategories');
 
-	Promise.all([
+	await Promise.all([
 		function(callback) {gamesCollection.find({'_id':req.params.id}, callback)},
 		function(callback) {categoryCollection.find({}, callback)}
 		], function(err, result) {

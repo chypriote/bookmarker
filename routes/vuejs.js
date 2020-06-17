@@ -15,11 +15,11 @@ const multer = require('multer');
 	const upload = multer({storage: storage});
 
 // List of posts
-router.get('/', function(req, res) {
+router.get('/', async function(req, res) {
 	const vuejsCollection = req.db.get('vuejsCollection');
 	const categoryCollection = req.db.get('vuejsCategories');
 
-	Promise.all([
+	await Promise.all([
 		function(callback) {vuejsCollection.find({}, callback)},
 		function(callback) {categoryCollection.find({}, callback)}
 		], function(err, result) {
@@ -103,21 +103,21 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 	});
 
 // Gestion item
-	router.get('/edit/:id', function(req, res) {
+	router.get('/edit/:id', async function(req, res) {
 		const vuejsCollection = req.db.get('vuejsCollection');
 		const categoryCollection = req.db.get('vuejsCategories');
 
-		Promise.all([
+		const result = await Promise.all([
 			function(callback) {vuejsCollection.find({'_id':req.params.id}, callback)},
 			function(callback) {categoryCollection.find({}, callback)}
-			], function(err, result) {
-				const item = result[0][0];
-				res.render('single', {
-					"item":item,
-					"categoryList": result[1],
-					"title": item.title
-				});
-			});
+			])
+
+		const item = result[0][0];
+		return res.render('single', {
+			"item":item,
+			"categoryList": result[1],
+			"title": item.title
+		});
 	});
 	router.delete('/edit/:id', function(req, res) {
 		const collection = req.db.get('vuejsCollection');

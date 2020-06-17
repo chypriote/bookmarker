@@ -15,11 +15,11 @@ const multer = require('multer');
 	const upload = multer({storage: storage});
 
 // List of posts
-router.get('/', function(req, res) {
+router.get('/', async function(req, res) {
 	const pluginsCollection = req.db.get('pluginsCollection');
 	const categoryCollection = req.db.get('pluginsCategories');
 
-	Promise.all([
+	await Promise.all([
 		function(callback) {pluginsCollection.find({}, callback)},
 		function(callback) {categoryCollection.find({}, callback)}
 		], function(err, result) {
@@ -103,11 +103,11 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 	});
 
 // Gestion item
-	router.get('/edit/:id', function(req, res) {
+	router.get('/edit/:id', async function(req, res) {
 		const pluginsCollection = req.db.get('pluginsCollection');
 		const categoryCollection = req.db.get('pluginsCategories');
 
-		Promise.all([
+		await Promise.all([
 			function(callback) {pluginsCollection.find({'_id':req.params.id}, callback)},
 			function(callback) {categoryCollection.find({}, callback)}
 			], function(err, result) {
