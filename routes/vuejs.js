@@ -1,12 +1,10 @@
-var express = require('express');
-
-var async = require('async');
-var router = express.Router();
-var moment = require("moment");
+const express = require('express');
+const router = express.Router();
+const moment = require("moment");
 		moment.locale('fr');
 
-var multer = require('multer');
-	var storage = multer.diskStorage({
+const multer = require('multer');
+	const storage = multer.diskStorage({
 	  destination: function (req, file, cb) {
 	    cb(null, './public/images/logos');
 	  },
@@ -14,14 +12,14 @@ var multer = require('multer');
 	    cb(null, file.originalname);
 	  }
 	});
-	var upload = multer({storage: storage});
+	const upload = multer({storage: storage});
 
 // List of posts
 router.get('/', function(req, res) {
-	var vuejsCollection = req.db.get('vuejsCollection');
-	var categoryCollection = req.db.get('vuejsCategories');
+	const vuejsCollection = req.db.get('vuejsCollection');
+	const categoryCollection = req.db.get('vuejsCategories');
 
-	async.parallel([
+	Promise.all([
 		function(callback) {vuejsCollection.find({}, callback)},
 		function(callback) {categoryCollection.find({}, callback)}
 		], function(err, result) {
@@ -34,7 +32,7 @@ router.get('/', function(req, res) {
 		});
 });
 router.get('/add', function(req, res) {
-	var collection = req.db.get('vuejsCategories');
+	const collection = req.db.get('vuejsCategories');
 	collection.find({}, {}, function(e, docs){
 		res.render('new', {
 			"title":"Ajouter un vuejs",
@@ -44,16 +42,16 @@ router.get('/add', function(req, res) {
 	})
 });
 router.post('/', upload.single('inputImage'), function(req, res) {
-	var pTitle = req.body.inputTitle,
+	const pTitle = req.body.inputTitle,
 			pUrl = req.body.inputUrl,
 			pDate = moment().format(),
 			pDesc = req.body.inputDescription,
 			pCategory = req.body.inputCategory;
 	if (typeof pCategory === 'string') {pCategory = [pCategory];}
-	var pImage = "";
+	const pImage = "";
 	if (req.file) pImage = req.file.path;
 
-	var collection = req.db.get('vuejsCollection');
+	const collection = req.db.get('vuejsCollection');
 
 	collection.insert({
 		"title":pTitle,
@@ -74,7 +72,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 
 // Categories
 	router.get('/categories', function(req, res) {
-		var collection = req.db.get('vuejsCategories');
+		const collection = req.db.get('vuejsCategories');
 		collection.find({}, {}, function(e, docs){
 			res.render('category', {
 				"title":"Ajouter une catégorie",
@@ -83,8 +81,8 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 		});
 	});
 	router.post('/categories', function(req, res) {
-		var	pCategory = req.body.postCategory;
-		var collection = req.db.get('vuejsCategories');
+		const	pCategory = req.body.postCategory;
+		const collection = req.db.get('vuejsCategories');
 
 		collection.insert({
 			"name":pCategory,
@@ -98,7 +96,7 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 		});
 	});
 	router.delete('/categories/:id', function(req, res) {
-		var collection = req.db.get('vuejsCategories');
+		const collection = req.db.get('vuejsCategories');
 		collection.remove({'_id':req.params.id}, function(err) {
 			res.send((err === null) ? {msg:''} : {msg:'error: '+err});
 		});
@@ -106,14 +104,14 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 
 // Gestion item
 	router.get('/edit/:id', function(req, res) {
-		var vuejsCollection = req.db.get('vuejsCollection');
-		var categoryCollection = req.db.get('vuejsCategories');
+		const vuejsCollection = req.db.get('vuejsCollection');
+		const categoryCollection = req.db.get('vuejsCategories');
 
-		async.parallel([
+		Promise.all([
 			function(callback) {vuejsCollection.find({'_id':req.params.id}, callback)},
 			function(callback) {categoryCollection.find({}, callback)}
 			], function(err, result) {
-				var item = result[0][0];
+				const item = result[0][0];
 				res.render('single', {
 					"item":item,
 					"categoryList": result[1],
@@ -122,13 +120,13 @@ router.post('/', upload.single('inputImage'), function(req, res) {
 			});
 	});
 	router.delete('/edit/:id', function(req, res) {
-		var collection = req.db.get('vuejsCollection');
+		const collection = req.db.get('vuejsCollection');
 		collection.remove({'_id':req.params.id}, function(err) {
 			res.send((err === null) ? {msg:''} : {msg:'error: '+err});
 		});
 	});
 	router.post('/edit/:id', upload.single('inputImage'), function(req, res) {
-		var	pTitle = req.body.inputTitle,
+		const	pTitle = req.body.inputTitle,
 				pUrl = req.body.inputUrl,
 				pDate = moment().format(),
 				pDesc = req.body.inputDescription,

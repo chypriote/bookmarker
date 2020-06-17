@@ -1,23 +1,22 @@
-var express = require('express');
-var router = express.Router();
-var async = require('async');
+const express = require('express');
+const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	var webCollection = req.db.get('webCollection');
-	var gamesCollection = req.db.get('gamesCollection');
-	var pluginsCollection = req.db.get('pluginsCollection');
-	var vuejsCollection = req.db.get('vuejsCollection');
+	const webCollection = req.db.get('webCollection');
+	const gamesCollection = req.db.get('gamesCollection');
+	const pluginsCollection = req.db.get('pluginsCollection');
+	const vuejsCollection = req.db.get('vuejsCollection');
 
-	async.parallel([
+	Promise.all([
 		function(callback) {webCollection.find({}, callback)},
 		function(callback) {gamesCollection.find({}, callback)},
 		function(callback) {pluginsCollection.find({}, callback)},
 		function(callback) {vuejsCollection.find({}, callback)}
 	], function(err, result) {
 
-		var arresult = result[0].concat(result[1]).concat(result[3]);
-		var totalPage = Math.floor(arresult.length / 10);
+		const arresult = result[0].concat(result[1]).concat(result[3]);
+		const totalPage = Math.floor(arresult.length / 10);
 
 		arresult = arresult.sort(function(a, b) {
 			return a['date'] < b ['date'] ? 1 : (a['date'] > b['date'] ? -1 : 0);
@@ -34,21 +33,21 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/page-:page', function(req, res, next) {
-	var webCollection = req.db.get('webCollection');
-	var gamesCollection = req.db.get('gamesCollection');
-	var pluginsCollection = req.db.get('pluginsCollection');
-	var vuejsCollection = req.db.get('vuejsCollection');
-	var currentPage = req.params.page - 1;
+	const webCollection = req.db.get('webCollection');
+	const gamesCollection = req.db.get('gamesCollection');
+	const pluginsCollection = req.db.get('pluginsCollection');
+	const vuejsCollection = req.db.get('vuejsCollection');
+	const currentPage = req.params.page - 1;
 
-	async.parallel([
+	Promise.all([
 		function(callback) {webCollection.find({}, callback)},
 		function(callback) {gamesCollection.find({}, callback)},
 		function(callback) {pluginsCollection.find({}, callback)},
 		function(callback) {vuejsCollection.find({}, callback)}
 	], function(err, result) {
 
-		var arresult = result[0].concat(result[1]).concat(result[3]);
-		var totalPage = Math.floor(arresult.length / 10) + 1;
+		const arresult = result[0].concat(result[1]).concat(result[3]);
+		const totalPage = Math.floor(arresult.length / 10) + 1;
 
 		arresult = arresult.sort(function(a, b) {
 			return a['date'] < b ['date'] ? 1 : (a['date'] > b['date'] ? -1 : 0);
