@@ -41,6 +41,7 @@
     "serve-favicon": "~2.5.0"
   },
   "devDependencies": {
+    "@architect/sandbox": "^1.12.6",
     "browser-sync": "^2.26.7",
     "cssnano": "^4.1.10",
     "gulp": "^4.0.0",
